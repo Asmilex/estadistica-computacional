@@ -81,3 +81,30 @@ c(sd(a), abs(d) * sqrt(20 * (20 + 1) / 12))
 
 # c)
 prod(a)
+
+d^20 * gamma(a_1 / d + 20) / gamma(a_1 / d)
+
+#
+# -------------------------------------------------------------- EJERCICIO 5 -----
+#
+
+x <- c(2, 2, 8, 7, 6, 1, 5)
+x[-1] - x[-length(x)]
+# Alternativamente
+diff(x)
+
+#
+# -------------------------------------------------------------- EJERCICIO 6 -----
+#
+
+set.seed(1)
+ABE <- sort(c(LETTERS, "Ñ"))
+
+# a)
+ABE.5 <- sample(ABE, 5, replace = FALSE)
+
+# b)
+PAL <- c(
+    paste(sample(ABE.5, replace = FALSE), collapse = ""),
+    paste(sample(ABE.5, replace = FALSE), collapse = "")
+)
