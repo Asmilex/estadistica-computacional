@@ -136,6 +136,10 @@ ejercicio_3(500)
 # Además, llegaremos a un punto de retornos reducidos, a partir del cual no interesará añadir ninguno más.
 
 
+
+# Utilizando la misma muestra de n = 5 ...
+
+
 #
 # -------------------------------------------------------------- EJERCICIO 4 -----
 #
