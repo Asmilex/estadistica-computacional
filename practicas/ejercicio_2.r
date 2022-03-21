@@ -137,9 +137,55 @@ ejercicio_3(500)
 
 
 
-# Utilizando la misma muestra de n = 5 ...
-
-
 #
 # -------------------------------------------------------------- EJERCICIO 4 -----
 #
+
+# Utilizando la misma muestra de n = 5 ...
+
+n <- 5
+x <- rnorm(n)
+X <- cbind(1, x)
+y <- 1 + x + rnorm(n, 0, 0.1)
+
+QR <- qr(X)
+Q <- qr.Q(QR)
+Q
+
+b <- t(Q) %*% y
+R <- qr.R(QR)
+R
+
+backsolve(R, b)
+
+#
+# ------------------------------------------------------ EJERCICIO PROPUESTO -----
+#
+
+n <- 3
+x <- 1:n
+A <- matrix(
+    rep(1:n, times = n, each = n)^rep(1:n, times = n),
+    ncol = n,
+    nrow = n
+)
+A
+b <- A %*% rep(1, n)
+b
+solve(A, b)
+
+rcond(A)
+
+n <- 12
+x <- 1:n
+A <- matrix(
+    rep(1:n, times = n, each = n)^rep(1:n, times = n),
+    ncol = n,
+    nrow = n
+)
+A
+b <- A %*% rep(1, n)
+b
+solve(A, b)
+cA <- rcond(A)
+solve(A, b, tol = cA)
