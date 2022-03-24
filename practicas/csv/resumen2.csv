@@ -1,0 +1,8 @@
+"X.....YEAR","X....NAME","X.....TIME","X...Country","X...Gender"
+"Min.   :1896  ","Length:50         ","Min.   : 9.63  ","USA    :26  ","female:21  "
+"1st Qu.:1936  ","Class :character  ","1st Qu.:10.15  ","JAM    : 6  ","male  :29  "
+"Median :1968  ","Mode  :character  ","Median :10.79  ","GBR    : 3  ",NA
+"Mean   :1964  ",NA,"Mean   :10.69  ","AUS    : 2  ",NA
+"3rd Qu.:1992  ",NA,"3rd Qu.:11.04  ","CAN    : 2  ",NA
+"Max.   :2016  ",NA,"Max.   :12.20  ","URS    : 2  ",NA
+NA,NA,NA,"(Other): 9  ",NA
