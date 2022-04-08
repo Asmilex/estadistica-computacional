@@ -116,25 +116,30 @@ Dado un Dataframe df,
 
 ### La familia `apply` y otras funciones similares
 
-| **Concepto** | **Expresiones**                                          | **Comentarios**                                                                                                                             |
-|:-------------|:---------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
-| `lappy`      | `lappy(contenedor, función a aplicar)`                   | Devuelve una lista. De ahí la `l`.                                                                                                          |
-| `sapply`     | `sapply(contenedor, función a aplicar)`                  | Simplifica el retorno. Creo que devuelve un vector                                                                                          |
-| `apply`      | `apply(contenedor, MARGIN, función, ..., simplify=TRUE)` | `MARGIN` controla la dimensión a la que se le aplica la función. [Más info](https://bookdown.org/jboscomendoza/r-principiantes4/apply.html) |
-| `split`      | `split(contenedor, criterio)`                            | Un criterio típico suele ser clasificar por factor. Por ejemplo: `split(Orange, Orange$Tree)`. Se le puede pasar también una función        |
-| `aggregate`  | `aggregate(df$variable, by = list(df$factor), summary)`  | Resume las columnas de un data frame para cada uno de los niveles de un factor.                                                             |
-| `tapply`     | `tapply(df$variable, df$factor, summary)`                | Igual que lo anterior                                                                                                                       |
+| **Concepto**           | **Expresiones**                                          | **Comentarios**                                                                                                                             |
+|:-----------------------|:---------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
+| `lappy`                | `lappy(contenedor, función a aplicar)`                   | Devuelve una lista. De ahí la `l`.                                                                                                          |
+| `sapply`               | `sapply(contenedor, función a aplicar)`                  | Simplifica el retorno. Creo que devuelve un vector                                                                                          |
+| `apply`                | `apply(contenedor, MARGIN, función, ..., simplify=TRUE)` | `MARGIN` controla la dimensión a la que se le aplica la función. [Más info](https://bookdown.org/jboscomendoza/r-principiantes4/apply.html) |
+| `split`                | `split(contenedor, criterio)`                            | Un criterio típico suele ser clasificar por factor. Por ejemplo: `split(Orange, Orange$Tree)`. Se le puede pasar también una función        |
+| `aggregate`            | `aggregate(df$variable, by = list(df$factor), summary)`  | Resume las columnas de un data frame para cada uno de los niveles de un factor.                                                             |
+| `tapply`               | `tapply(df$variable, df$factor, summary)`                | Igual que lo anterior                                                                                                                       |
+| Productorio            | `prod(x)`                                                | .                                                                                                                                           |
+| Sumatoria; acumulación | `sum(x)`                                                 | .                                                                                                                                           |
 
 ## idiosincrasia de R
 
-### Distribuciones estadísticas y aleatoriedad
+### Distribuciones estadísticas, aleatoriedad y otros conceptos similares
 
-| **Concepto**      | **Expresiones**                                        | **Comentarios** |
-|:------------------|:-------------------------------------------------------|:----------------|
-| Distribuciones    | `rnorm(n, mean = 0, sd = 1)`</br> `runif(n, min, max)` | .               |
-| Dibujar funciones | `plot`, `abline`, `contour`                            | .               |
-| Redondeo          | `trunc` </br> `floor` </br> `ceiling`                  | .               |
-| Gamma             | `gamma`                                                | .               |
+| **Concepto**            | **Expresiones**                                        | **Comentarios**                                  |
+|:------------------------|:-------------------------------------------------------|:-------------------------------------------------|
+| Media                   | `mean(x)`                                              | .                                                |
+| Cuasivarianza           | `var(x)`                                               | Sí, es la cuasivarianza, y no la varianza (°ー°〃) |
+| Cuasi-desviación típica | `sd(x)`                                                | .                                                |
+| Distribuciones          | `rnorm(n, mean = 0, sd = 1)`</br> `runif(n, min, max)` | .                                                |
+| Dibujar funciones       | `plot`, `abline`, `contour`                            | .                                                |
+| Redondeo                | `trunc` </br> `floor` </br> `ceiling`                  | .                                                |
+| Gamma                   | `gamma`                                                | .                                                |
 
 ### Logging y debugging
 
@@ -155,7 +160,6 @@ Dado un Dataframe df,
 | Secuencias                           | `seq(from, to, by)`                                   | .                                                                                                                                                                                                                                                                                                                                     |
 | Longitud de un contenedor            | `length(v)`                                           | .                                                                                                                                                                                                                                                                                                                                     |
 | Filtrado de elementos en un vector   | `x[condición]`                                        | Ejemplo: `x[x > 3]`                                                                                                                                                                                                                                                                                                                   |
-| Media                                | `mean(x)`                                             | .                                                                                                                                                                                                                                                                                                                                     |
 | Regla de reciclaje                   | .                                                     | En general, R siempre va a intentar aplicar lo que le pidas como buenamente pueda. Eso significa que si faltan elementos en un vector, o se le aplica una función escalar a un vector, se aplicará al resto de dimensiones volviendo a usar los valores existentes. Por ejemplo, `log(vector)` aplica el logaritmo a cada componente. |
 | Tomar muestras                       | `sample(contenedor, elementos, replace = TRUE/FALSE)` | .                                                                                                                                                                                                                                                                                                                                     |
 | Producto matricial/matriz por vector | `%*%`                                                 | .                                                                                                                                                                                                                                                                                                                                     |
