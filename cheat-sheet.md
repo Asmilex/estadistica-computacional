@@ -1,41 +1,44 @@
 <!-- LTeX: language=es -->
 # Cheat sheet
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 ## Conceptos básicos de programación
 
 ### Estructuras de datos
 
 | **Constructores** | **Expresiones**                                   | **Comentarios**                                                                                             |
 |:------------------|:--------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| Secuencias        | `n:m` </br> `seq` </br> `rep`                     |                                                                                                             |
+| Secuencias        | `n:m` </br> `seq(from, to, by)` </br> `rep`       |                                                                                                             |
 | Vector            | `c(valor1,  valor2)` </br> `vector(type, length)` | Puedes asignar nombres a los valores con names(v). type corresponde al tipo base,</br> eg logical o numeric |
-| Matrices          | `matrix(data, nrow, ncol)`                        | .                                                                                                           |
-| Listas            | `list()`                                          | .                                                                                                           |
+| Matrices          | `matrix(data, nrow, ncol)`                        |                                                                                                             |
+| Listas            | `list()`                                          |                                                                                                             |
 
-#### Vectores
+#### Vectores y listas
 
-| **Vectores**      | **Expresiones**                    | **Comentarios**                                            |
-|:------------------|:-----------------------------------|:-----------------------------------------------------------|
-| Subseteo          | `x[cond(x)]`                       | Donde cond devuelve un vector lógico indicando los índices |
-| Índices ordenados | `order(x)`                         |                                                            |
-| Vector ordenado   | `sort(x)`                          |                                                            |
-|                   | `which`                            | Da los índices de los cuales la condición es verdadera     |
-| Atributos         | `mode` <br> `typeof` <br> `length` | .                                                          |
+| **Vectores**      | **Expresiones**      | **Comentarios**                                                                 |
+|:------------------|:---------------------|:--------------------------------------------------------------------------------|
+| Longitud          | `length(v)`          |                                                                                 |
+| Subseteo          | `x[cond(x)]`         | Donde cond devuelve un vector lógico indicando los índices. Ejemplo: `x[x > 3]` |
+| Índices ordenados | `order(x)`           |                                                                                 |
+| Vector ordenado   | `sort(x)`            |                                                                                 |
+|                   | `which`              | Da los índices para los cuales la condición es cierta                           |
+| Atributos         | `mode` <br> `typeof` |                                                                                 |
 
 #### Matrices
 
-| **Matrices**                       | **Expresiones** | **Comentarios** |
-|:-----------------------------------|:----------------|:----------------|
-| Multiplicación elemento a elemento | `*`             | .               |
-| Multiplicación matricial           | `%*%`           | .               |
-| Inversa                            | `solve(A)`      | .               |
+| **Matrices**                       | **Expresiones**                            | **Comentarios**                                                                     |
+|:-----------------------------------|:-------------------------------------------|:------------------------------------------------------------------------------------|
+| Multiplicación elemento a elemento | `*`                                        |                                                                                     |
+| Multiplicación matricial           | `%*%`                                      |                                                                                     |
+| Traspuesta                         | `t(matriz)`                                |                                                                                     |
+| Inversa                            | `solve(A)`                                 |                                                                                     |
+| Resolución de sistemas             | `solve(A, b)`                              | En un sistema de ecuaciones, `A` es la parte de la izquierda y `b` la de la derecha |
+| Suma de filas y columnas           | `rowSums()`, `colSums()`                   |                                                                                     |
+| Sacar las diagonales de una matriz | `split(matriz, col(matriz) -+ row(matriz)` | Dependiendo de si se usa `+` o `-`, da unas diagonales u otras                      |
+| Diagonal de una matriz             | `diag(matriz)`                             |                                                                                     |
+| Unir filas o columnas              | `rbind`, `cbind`                           |                                                                                     |
 
-#### Listas
-
-| **Concepto** | **Expresiones**           | **Comentarios**         |
-|:-------------|:--------------------------|:------------------------|
-| Indexeo      | `[]` <br> `[[]]` <br> `$` | Por índice o por nombre |
-| Otros        | `str`<br> `summary`       |                         |
 
 #### Dataframes
 
@@ -113,6 +116,7 @@
 | Dibujar funciones       | `plot`, `abline`, `contour`                            |                                                  |
 | Redondeo                | `trunc` </br> `floor` </br> `ceiling`                  |                                                  |
 | Gamma                   | `gamma`                                                |                                                  |
+| Tomar muestras          | `sample(contenedor, elementos, replace = TRUE/FALSE)`  |                                                  |
 
 ### Logging y debugging
 
@@ -126,17 +130,7 @@
 
 ## Otras movidas que no sé dónde poner ahora mismo
 
-| **Concepto**                         | **Expresiones**                                       | **Comentarios**                                                                                                                                                                                                                                                                                                                       |
-|:-------------------------------------|:------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Suma de filas y columnas             | `rowSums()`, `colSums()`                              |                                                                                                                                                                                                                                                                                                                                       |
-| Sacar las diagonales de una matriz   | `split(matriz, col(matriz) -+ row(matriz)`            | Dependiendo de si se usa `+` o `-`, da unas diagonales u otras                                                                                                                                                                                                                                                                        |
-| Secuencias                           | `seq(from, to, by)`                                   |                                                                                                                                                                                                                                                                                                                                       |
-| Longitud de un contenedor            | `length(v)`                                           |                                                                                                                                                                                                                                                                                                                                       |
-| Filtrado de elementos en un vector   | `x[condición]`                                        | Ejemplo: `x[x > 3]`                                                                                                                                                                                                                                                                                                                   |
-| Regla de reciclaje                   | .                                                     | En general, R siempre va a intentar aplicar lo que le pidas como buenamente pueda. Eso significa que si faltan elementos en un vector, o se le aplica una función escalar a un vector, se aplicará al resto de dimensiones volviendo a usar los valores existentes. Por ejemplo, `log(vector)` aplica el logaritmo a cada componente. |
-| Tomar muestras                       | `sample(contenedor, elementos, replace = TRUE/FALSE)` |                                                                                                                                                                                                                                                                                                                                       |
-| Producto matricial/matriz por vector | `%*%`                                                 |                                                                                                                                                                                                                                                                                                                                       |
-| Traspuesta                           | `t(matriz)`                                           |                                                                                                                                                                                                                                                                                                                                       |
-| Diagonal de una matriz               | `diag(matriz)`                                        |                                                                                                                                                                                                                                                                                                                                       |
-| Resolución de sistemas               | `solve(A, b)`                                         | En un sistema de ecuaciones, `A` es la parte de la izquierda y `b` la de la derecha                                                                                                                                                                                                                                                   |
-| Unir filas o columnas                | `rbind`, `cbind`                                      |                                                                                                                                                                                                                                                                                                                                       |
+| **Concepto**       | **Expresiones**     | **Comentarios**                                                                                                                                                                                                                                                                                                                       |
+|:-------------------|:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Regla de reciclaje | .                   | En general, R siempre va a intentar aplicar lo que le pidas como buenamente pueda. Eso significa que si faltan elementos en un vector, o se le aplica una función escalar a un vector, se aplicará al resto de dimensiones volviendo a usar los valores existentes. Por ejemplo, `log(vector)` aplica el logaritmo a cada componente. |
+| Otros              | `str`<br> `summary` |                                                                                                                                                                                                                                                                                                                                       |
