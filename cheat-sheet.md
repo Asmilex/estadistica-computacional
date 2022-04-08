@@ -10,20 +10,20 @@
 | **Constructores** | **Expresiones**                                   | **Comentarios**                                                                                             |
 |:------------------|:--------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
 | Secuencias        | `n:m` </br> `seq(from, to, by)` </br> `rep`       |                                                                                                             |
-| Vector            | `c(valor1,  valor2)` </br> `vector(type, length)` | Puedes asignar nombres a los valores con names(v). type corresponde al tipo base,</br> eg logical o numeric |
+| Vectores          | `c(valor1,  valor2)` </br> `vector(type, length)` | Puedes asignar nombres a los valores con names(v). type corresponde al tipo base,</br> eg logical o numeric |
 | Matrices          | `matrix(data, nrow, ncol)`                        |                                                                                                             |
 | Listas            | `list()`                                          |                                                                                                             |
 
 #### Vectores y listas
 
-| **Vectores**      | **Expresiones**      | **Comentarios**                                                                 |
-|:------------------|:---------------------|:--------------------------------------------------------------------------------|
-| Longitud          | `length(v)`          |                                                                                 |
-| Subseteo          | `x[cond(x)]`         | Donde cond devuelve un vector lógico indicando los índices. Ejemplo: `x[x > 3]` |
-| Índices ordenados | `order(x)`           |                                                                                 |
-| Vector ordenado   | `sort(x)`            |                                                                                 |
-|                   | `which`              | Da los índices para los cuales la condición es cierta                           |
-| Atributos         | `mode` <br> `typeof` |                                                                                 |
+| **Vectores**                                           | **Expresiones**            | **Comentarios**                                                                                                                                                                                                   |
+|:-------------------------------------------------------|:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Longitud                                               | `length(v)`                |                                                                                                                                                                                                                   |
+| Filtrar elementos                                      | `x[condición]`             | Donde `condición` devuelve un vector lógico indicando los índices. Ejemplo: `x[x > 3]`                                                                                                                            |
+| Obtener índices de elementos que cumplen una condición | `which(condición sobre x)` | Da los índices para los cuales la condición es cierta. Ejemplos: <br>`which(LETTERS == "R")`<br>`which((1:12)%%2 == 0) # which are even?`<br>`which(ll <- c(TRUE, FALSE, TRUE, NA, FALSE, FALSE, TRUE)) #> 1 3 7` |
+| Índices ordenados                                      | `order(x)`                 | Tiene muchos parámetros. Merece la pena [echarle un ojo](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/order)                                                                                |
+| Vector ordenado                                        | `sort(x)`                  |                                                                                                                                                                                                                   |
+| Atributos                                              | `mode` <br> `typeof`       |                                                                                                                                                                                                                   |
 
 #### Matrices
 
@@ -42,14 +42,14 @@
 
 #### Dataframes
 
-| **Concepto**     | **Expresiones**                              | **Comentarios**                                                                                                         |
-|:-----------------|:---------------------------------------------|:------------------------------------------------------------------------------------------------------------------------|
-| Constructor      | `data.frame(columna1, columna2, ...)`        |                                                                                                                         |
-| Indexeo          | `df[v]`<br> `df[v1, v2]`                     | Como lista: selecciona columnas <br> Como matriz: selecciona elementos                                                  |
-|                  | `subset(df, subset)`                         | Donde el argumento subset es una expresión lógica indicando las filas a tomar                                           |
-| Previsualización | `head` <br>  `tail`                          |                                                                                                                         |
-| Transformaciones | `transform(df, expresión1, expresión2, ...)` | Añade las filas calculadas por las expresiones dadas                                                                    |
-|                  | `within(df, z <- expr)`                      | Añade la columna de nombre 'z' calculada por la expresión. <br>Se pueden añadir varias columnas metiéndolo en un bloque |
+| **Concepto**                 | **Expresiones**                              | **Comentarios**                                                                                                         |
+|:-----------------------------|:---------------------------------------------|:------------------------------------------------------------------------------------------------------------------------|
+| Constructor                  | `data.frame(columna1, columna2, ...)`        |                                                                                                                         |
+| Acceso a elementos           | `df[v]`<br> `df[v1, v2]`                     | Como lista: selecciona columnas <br> Como matriz: selecciona elementos                                                  |
+| Filtrado                     | `subset(df, condición)`                      | Donde el argumento `condición` es una expresión lógica indicando las filas a tomar                                      |
+| Primeros y últimos elementos | `head(df)` <br>  `tail(df)`                  |                                                                                                                         |
+| Transformaciones             | `transform(df, expresión1, expresión2, ...)` | Añade las filas calculadas por las expresiones dadas                                                                    |
+| Añadir columnas              | `within(df, z <- expr)`                      | Añade la columna de nombre `z` calculada por la expresión. <br>Se pueden añadir varias columnas metiéndolo en un bloque |
 
 ### Operadores
 
@@ -59,7 +59,6 @@
 | Módulo         | `%%`                        |                                                                                                                                                                   |
 | Divisón entera | `%/%`                       |                                                                                                                                                                   |
 | Lógicas        | `!, &, &&, |, ||, xor(x,y)` | Los operadores dobles (`&&` y `||`) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento. Mejor usa los dobles que no hacen cosas raras |
-
 
 ### Flujo de control
 
