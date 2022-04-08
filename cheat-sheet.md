@@ -1,39 +1,42 @@
 <!-- LTeX: language=es -->
 # Cheat sheet
 
-| **Concepto**                | **Expresiones**                                        | **Comentarios** |
-|:----------------------------|:-------------------------------------------------------|:----------------|
-| Distribuciones              | `rnorm(n, mean = 0, sd = 1)`</br> `runif(n, min, max)` |                 |
-| Unir filas o </br> columnas | `rbind` </br> `cbind`                                  |                 |
-| Ploteo general              | `plot`</br> `abline` </br> `contour`                   |                 |
-### Estadistica 101
+## Conceptos básicos de programación
 
-| **Constructores** | **Expresiones**                                   | **Comentarios**                                                                                             |
-|:------------------|:--------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| Secuencias        | `n:m` </br> `seq` </br> `rep`                     |                                                                                                             |
-| Vector            | `c(valor1,  valor2)` </br> `vector(type, length)` | Puedes asignar nombres a los valores con names(v). type corresponde al tipo base,</br> eg logical o numeric |
-| Matrices          | `matrix(data, nrow, ncol)`                        |                                                                                                             |
-| Arrays            |                                                   |                                                                                                             |
+### Operadores
 
-Si x es un vector,
-| **Vectores** | **Expresiones** | **Comentarios**                         |
-|:-------------|:----------------|:----------------------------------------|
-| `x[x > 0]`   |                 | Expresiones lógicas cualesquiera dentro |
-|              |                 |                                         |
+| **Operadores** | **Expresiones**             | **Comentarios**                                                                                                                                                   |
+|:---------------|:----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Ariméticas     | `+ - * / ^`                 | .                                                                                                                                                                 |
+| Módulo         | `%%`                        | .                                                                                                                                                                 |
+| Divisón entera | `%/%`                       | .                                                                                                                                                                 |
+| Lógicas        | `!, &, &&, |, ||, xor(x,y)` | Los operadores dobles (`&&` y `||`) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento. Mejor usa los dobles que no hacen cosas raras |
 
-| **Funciones incluidas** | **Expresiones**                       | **Comentarios** |
-|:------------------------|:--------------------------------------|:----------------|
-| Redondeo                | `trunc` </br> `floor` </br> `ceiling` |                 |
-| Gamma                   | `gamma`                               |                 |
-|                         |                                       |                 |
+### Estructuras de datos
 
-| **Operadores** | **Expresiones** | **Comentarios** |
-|:---------------|:----------------|:----------------|
-| Ariméticas     | `+ - * / ^`     |                 |
-| Módulo         | `%%`            |                 |
-| Divisón entera | `%/%`           |                 |
-| Lógicas        | ```! & && \| \|\| xor(x,y)``` | Los operadores dobles (&& y ||) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento |
-## Funciones
+| **Estructura** | **Expresiones**                                   | **Comentarios**                                                                                             |
+|:---------------|:--------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
+| Secuencias     | `n:m` </br> `seq` </br> `rep`                     | .                                                                                                           |
+| Vector         | `c(valor1,  valor2)` </br> `vector(type, length)` | Puedes asignar nombres a los valores con names(v). type corresponde al tipo base,</br> eg logical o numeric |
+| Matrices       | `matrix(data, nrow, ncol)`                        | .                                                                                                           |
+
+### Flujo de control
+
+| **Concepto**            | **Expresiones**                                                        | **Comentarios**                                                                                                                                              |
+|:------------------------|:-----------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Condicionales           | `if (cond) {expr} else if (cond) {expr} else { expr} `                 | Son capaces de devolver valores al final de la expresión. Eso significa que se pueden hacer asignaciones del estilo `x <- if (expr) nosequé else nosecuánto` |
+| Condicional vectorizado | `ifelse(condición, valor verdadero, valor falso)`                      | .                                                                                                                                                            |
+| Switch                  | `switch(variable, posible_valor1 = retorno, posible_valor2 = retorno)` | .                                                                                                                                                            |
+
+### Bucles
+
+| **Concepto**         | **Expresiones**              | **Comentarios**                                               |
+|:---------------------|:-----------------------------|:--------------------------------------------------------------|
+| Range-based for loop | `for (variable in rango) {}` | Habitualmente, `for (i in min:max)` o `for (x in contenedor)` |
+| While                | `while (cond) {expr}`        | .                                                             |
+| Salida temprana      | `break`                      | .                                                             |
+
+### Funciones
 
 | **Concepto**                                 | **Expresiones**                          | **Comentarios**                                                                                                                                                                                                                     |
 |:---------------------------------------------|:-----------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -44,24 +47,7 @@ Si x es un vector,
 | Número variable de argumentos en una función | `function(parámetros obligatorios, ...)` | .                                                                                                                                                                                                                                   |
 | Argumentos omitidos                          | `missing(argumento)`                     | Es especialmente útil cuando se cita directamente los parámetros de una función (`f(x = 1, y = 2, w = 4) => missing(z)`)                                                                                                            |
 
-## Estructuras de programación básicas
-
-| **Concepto**            | **Expresiones**                                                        | **Comentarios**                                                                                                                                              |
-|:------------------------|:-----------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Condicionales           | `if (cond) {expr} else if (cond) {expr} else { expr} `                 | Son capaces de devolver valores al final de la expresión. Eso significa que se pueden hacer asignaciones del estilo `x <- if (expr) nosequé else nosecuánto` |
-| Condicional vectorizado | `ifelse(condición, valor verdadero, valor falso)`                      | .                                                                                                                                                            |
-| Operadores lógicos      | `&&`, `||`                                                             | .                                                                                                                                                            |
-| Switch                  | `switch(variable, posible_valor1 = retorno, posible_valor2 = retorno)` | .                                                                                                                                                            |
-
-## Bucles
-
-| **Concepto**         | **Expresiones**              | **Comentarios**                                               |
-|:---------------------|:-----------------------------|:--------------------------------------------------------------|
-| Range-based for loop | `for (variable in rango) {}` | Habitualmente, `for (i in min:max)` o `for (x in contenedor)` |
-| While                | `while (cond) {expr}`        | .                                                             |
-| Salida temprana      | `break`                      | .                                                             |
-
-## La familia `apply` y otras funciones similares
+### La familia `apply` y otras funciones similares
 
 | **Concepto** | **Expresiones**                                          | **Comentarios**                                                                                                                             |
 |:-------------|:---------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
@@ -72,7 +58,18 @@ Si x es un vector,
 | `aggregate`  | `aggregate(df$variable, by = list(df$factor), summary)`  | Resume las columnas de un data frame para cada uno de los niveles de un factor.                                                             |
 | `tapply`     | `tapply(df$variable, df$factor, summary)`                | Igual que lo anterior                                                                                                                       |
 
-## Logging y debugging
+## Ideosincracias de R
+
+### Distribuciones estadísticas y aleatoriedad
+
+| **Concepto**      | **Expresiones**                                        | **Comentarios** |
+|:------------------|:-------------------------------------------------------|:----------------|
+| Distribuciones    | `rnorm(n, mean = 0, sd = 1)`</br> `runif(n, min, max)` | .               |
+| Dibujar funciones | `plot`, `abline`, `contour`                            | .               |
+| Redondeo          | `trunc` </br> `floor` </br> `ceiling`                  | .               |
+| Gamma             | `gamma`                                                | .               |
+
+### Logging y debugging
 
 | **Concepto**                                  | **Expresiones**                           | **Comentarios**                                                                                                                           |
 |:----------------------------------------------|:------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------|
@@ -84,7 +81,18 @@ Si x es un vector,
 
 ## Otras movidas que no sé dónde poner ahora mismo
 
-| **Concepto**                       | **Expresiones**                            | **Comentarios**                                                |
-|:-----------------------------------|:-------------------------------------------|:---------------------------------------------------------------|
-| Suma de filas y columnas           | `rowSums()`, `colSums()`                   | .                                                              |
-| Sacar las diagonales de una matriz | `split(matriz, col(matriz) -+ row(matriz)` | Dependiendo de si se usa `+` o `-`, da unas diagonales u otras |
+| **Concepto**                         | **Expresiones**                                       | **Comentarios**                                                                                                                                                                                                                                                                                                                       |
+|:-------------------------------------|:------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Suma de filas y columnas             | `rowSums()`, `colSums()`                              | .                                                                                                                                                                                                                                                                                                                                     |
+| Sacar las diagonales de una matriz   | `split(matriz, col(matriz) -+ row(matriz)`            | Dependiendo de si se usa `+` o `-`, da unas diagonales u otras                                                                                                                                                                                                                                                                        |
+| Secuencias                           | `seq(from, to, by)`                                   | .                                                                                                                                                                                                                                                                                                                                     |
+| Longitud de un contenedor            | `length(v)`                                           | .                                                                                                                                                                                                                                                                                                                                     |
+| Filtrado de elementos en un vector   | `x[condición]`                                        | Ejemplo: `x[x > 3]`                                                                                                                                                                                                                                                                                                                   |
+| Media                                | `mean(x)`                                             | .                                                                                                                                                                                                                                                                                                                                     |
+| Regla de reciclaje                   | .                                                     | En general, R siempre va a intentar aplicar lo que le pidas como buenamente pueda. Eso significa que si faltan elementos en un vector, o se le aplica una función escalar a un vector, se aplicará al resto de dimensiones volviendo a usar los valores existentes. Por ejemplo, `log(vector)` aplica el logaritmo a cada componente. |
+| Tomar muestras                       | `sample(contenedor, elementos, replace = TRUE/FALSE)` | .                                                                                                                                                                                                                                                                                                                                     |
+| Producto matricial/matriz por vector | `%*%`                                                 | .                                                                                                                                                                                                                                                                                                                                     |
+| Traspuesta                           | `t(matriz)`                                           | .                                                                                                                                                                                                                                                                                                                                     |
+| Diagonal de una matriz               | `diag(matriz)`                                        | .                                                                                                                                                                                                                                                                                                                                     |
+| Resolución de sistemas               | `solve(A, b)`                                         | En un sistema de ecuaciones, `A` es la parte de la izquierda y `b` la de la derecha                                                                                                                                                                                                                                                   |
+| Unir filas o columnas                | `rbind`, `cbind`                                      | .                                                                                                                                                                                                                                                                                                                                     |
