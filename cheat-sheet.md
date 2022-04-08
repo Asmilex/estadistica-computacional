@@ -58,7 +58,7 @@
 | Ariméticas     | `+ - * / ^`                 |                                                                                                                                                                   |
 | Módulo         | `%%`                        |                                                                                                                                                                   |
 | Divisón entera | `%/%`                       |                                                                                                                                                                   |
-| Lógicas        | `!, &, &&, |, ||, xor(x,y)` | Los operadores dobles (`&&` y `||`) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento. Mejor usa los dobles que no hacen cosas raras |
+| Lógicas        | `!, &, &&, |, \|\|, xor(x,y)` | Los operadores dobles (`&&` y `||`) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento. Mejor usa los dobles que no hacen cosas raras |
 
 ### Flujo de control
 
