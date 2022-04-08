@@ -53,12 +53,12 @@
 
 ### Operadores
 
-| **Operadores** | **Expresiones**               | **Comentarios**                                                                                                                                                   |
-|:---------------|:------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Ariméticas     | `+ - * / ^`                   |                                                                                                                                                                   |
-| Módulo         | `%%`                          |                                                                                                                                                                   |
-| Divisón entera | `%/%`                         |                                                                                                                                                                   |
-| Lógicas        | `!, &, &&, &#124;, &#124;&#124;, xor(x,y)` | Los operadores dobles (`&&` y `&#124;&#124;`) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento. Mejor usa los dobles que no hacen cosas raras |
+| **Operadores** | **Expresiones**                                                            | **Comentarios**                                                                                                                                                                        |
+|:---------------|:---------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Ariméticas     | `+ - * / ^`                                                                |                                                                                                                                                                                        |
+| Módulo         | `%%`                                                                       |                                                                                                                                                                                        |
+| Divisón entera | `%/%`                                                                      |                                                                                                                                                                                        |
+| Lógicas        | `!`, `&`, `&&`, <code>&#124;</code>, <code>&#124;&#124;</code>, `xor(x,y)` | Los operadores dobles (`&&` y <code>&#124;&#124;</code>) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento. Mejor usa los dobles que no hacen cosas raras |
 
 ### Flujo de control
 
