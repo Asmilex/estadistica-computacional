@@ -14,17 +14,13 @@
 Si x es un vector,
 | **Vectores**      | **Expresiones**                                   | **Comentarios**                                            |
 |:------------------|:--------------------------------------------------|:-----------------------------------------------------------|
-| Subseteo          | `x[cond(x)]`                                      | Donde cond devuelve un vector lógico indicando los índices |
+| Filtrado          | `x[cond(x)]`                                      | Donde cond devuelve un vector lógico indicando los índices |
 | Índices ordenados | `order(x)`                                        |                                                            |
 | Vector ordenado   | `sort(x)`                                         |                                                            |
-|                   | `which`                                           | Da los índices de los cuales la condición es verdadera     |
+|                   | `which(x)`                                        | Da los índices de los cuales x tiene como valor TRUE       |
 | Otras funciones   | `sum`<br> `prod` <br> `min`<br> `max` <br> `mean` |                                                            |
 | Atributos         | `mode` <br> `typeof` <br> `length`                |                                                            |
 
-Dado un vector x, con valores
-| **Factores** | **Expresiones** | **Comentarios** |
-|:-------------|:----------------|:----------------|
-|              | `factor(x)`     |                 |
 
 Dada una matrix M,
 | **Matrices**                       | **Expresiones** | **Comentarios** |
@@ -66,9 +62,14 @@ Dado un Dataframe df,
 | Gamma                   | `gamma`                               |                 |
 |                         |                                       |                 |
 ### Lectura de ficheros
-| **Funciones incluidas** | **Expresiones** | **Comentarios** |
-|:------------------------|:----------------|:----------------|
-|                         |                 |                 |
+| **Concepto**               | **Expresiones**             | **Comentarios**                                                                      |
+|:---------------------------|:----------------------------|:-------------------------------------------------------------------------------------|
+| Directorio de trabajo      | `getwd()`</br> `setwd()`    |                                                                                      |
+| Leer tabla o dataframe     | `read.table()`              | as.is o stringsAsFactors para leerlas como factores                                                                                     |
+| Leer cosas más genéricas   | `scan()`                    | Por defecto separa por ' '. </br> Para saltarse headers, se pasa el argumento skip=1 |
+| Cargar datos de un paquete | `data(coal, package)`       |                                                                                      |
+| Escribir a ficheros        | `write.table` </br> `write` |                                                                                      |
+|                            |                             |                                                                                      |
 ## Funciones
 ### Operadores
 
@@ -141,7 +142,7 @@ Dado un Dataframe df,
 | **Concepto**                                  | **Expresiones**                           | **Comentarios**                                                                                                                           |
 |:----------------------------------------------|:------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------|
 | Mostrar las variables definidas en el entorno | `ls()`                                    | .                                                                                                                                         |
-| Mensajes                                      | `warning()`, `message()`                  | .                                                                                                                                         |
+| Mensajes                                      | `stop()`, `warning()`, `message()`        | .                                                                                                                                         |
 | Traza                                         | Tras una ejecución fallida, `traceback()` | .                                                                                                                                         |
 | Punto de ruptura (*breakpoint)*               | `browser()`                               | Cuando entra en el ambiente de debug, con `get("var")` saca las variables locales (¿A veces? R hace cosas RaRas), y `Q` sale del debuggeo |
 | Debug                                         | `debug(función)`                          | Para salir, `undebug()`                                                                                                                   |
