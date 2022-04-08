@@ -4,24 +4,24 @@
 ## Conceptos básicos de programación
 ### Estructuras de datos
 
-| **Constructores**                   | **Expresiones**                                   | **Comentarios**                                                     |
-|:------------------------------------|:--------------------------------------------------|:--------------------------------------------------------------------|
-| Secuencias                          | `n:m` </br> `seq(from, to, by)` </br> `rep`       |                                                                     |
-| Vectores                            | `c(valor1,  valor2)` </br> `vector(type, length)` | `type` corresponde al tipo base. Por ejemplo, `logical` o `numeric` |
-| Matrices                            | `matrix(data, nrow, ncol)`                        |                                                                     |
-| Listas                              | `list()`                                          |                                                                     |
-| Asignar un nombre a las componentes | `names(v) <- c("nombre1", "nombre2")`             |                                                                     |
+| **Constructores**                   | **Expresiones**                                       | **Comentarios**                                                     |
+|:------------------------------------|:------------------------------------------------------|:--------------------------------------------------------------------|
+| Secuencias                          | `n:m` </br> `seq(from, to, by)` </br> `rep(vec, ...)` |                                                                     |
+| Vectores                            | `c(valor1,  valor2)` </br> `vector(type, length)`     | `type` corresponde al tipo base. Por ejemplo, `logical` o `numeric` |
+| Matrices                            | `matrix(data, nrow, ncol)`                            |                                                                     |
+| Listas                              | `list()`                                              |                                                                     |
+| Asignar un nombre a las componentes | `names(v) <- c("nombre1", "nombre2")`                 |                                                                     |
 
 #### Vectores y listas
 
 | **Vectores**                                           | **Expresiones**            | **Comentarios**                                                                                                                                                                                                   |
 |:-------------------------------------------------------|:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Longitud                                               | `length(v)`                |                                                                                                                                                                                                                   |
+| Longitud                                               | `length(x)`                |                                                                                                                                                                                                                   |
 | Filtrar elementos                                      | `x[condición]`             | Donde `condición` devuelve un vector lógico indicando los índices. Ejemplo: `x[x > 3]`                                                                                                                            |
 | Obtener índices de elementos que cumplen una condición | `which(condición sobre x)` | Da los índices para los cuales la condición es cierta. Ejemplos: <br>`which(LETTERS == "R")`<br>`which((1:12)%%2 == 0) # which are even?`<br>`which(ll <- c(TRUE, FALSE, TRUE, NA, FALSE, FALSE, TRUE)) #> 1 3 7` |
 | Índices ordenados                                      | `order(x)`                 | Tiene muchos parámetros. Merece la pena [echarle un ojo](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/order)                                                                                |
 | Vector ordenado                                        | `sort(x)`                  |                                                                                                                                                                                                                   |
-| Atributos                                              | `mode` <br> `typeof`       |                                                                                                                                                                                                                   |
+| Atributos                                              | `mode(x)` <br> `typeof(x)` |                                                                                                                                                                                                                   |
 
 #### Matrices
 
@@ -85,13 +85,13 @@
 | Argumentos omitidos                          | `missing(argumento)`                     | Es especialmente útil cuando se cita directamente los parámetros de una función (`f(x = 1, y = 2, w = 4) => missing(z)`)                                                                                                            |
 
 ### Lectura de ficheros
-| **Concepto**               | **Expresiones**             | **Comentarios**                                                                      |
-|:---------------------------|:----------------------------|:-------------------------------------------------------------------------------------|
-| Directorio de trabajo      | `getwd()`</br> `setwd()`    |                                                                                      |
-| Leer tabla o dataframe     | `read.table()`              | as.is o stringsAsFactors para leerlas como factores                                  |
-| Leer cosas más genéricas   | `scan()`                    | Por defecto separa por ' '. </br> Para saltarse headers, se pasa el argumento skip=1 |
-| Cargar datos de un paquete | `data(coal, package)`       |                                                                                      |
-| Escribir a ficheros        | `write.table` </br> `write` |                                                                                      |
+| **Concepto**               | **Expresiones**              | **Comentarios**                                                                      |
+|:---------------------------|:-----------------------------|:-------------------------------------------------------------------------------------|
+| Directorio de trabajo      | `getwd()`</br> `setwd()`     |                                                                                      |
+| Leer tabla o dataframe     | `read.table()`               | as.is o stringsAsFactors para leerlas como factores                                  |
+| Leer cosas más genéricas   | `scan()`                     | Por defecto separa por ' '. </br> Para saltarse headers, se pasa el argumento skip=1 |
+| Cargar datos de un paquete | `data(coal, package="boot")` | Carga los datos `coal` de paquete `boot`                                             |
+| Escribir a ficheros        | `write.table` </br> `write`  |                                                                                      |
 
 ## idiosincrasias de R
 
@@ -127,7 +127,7 @@
 | **Concepto**                                  | **Expresiones**                           | **Comentarios**                                                                                                                           |
 |:----------------------------------------------|:------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------|
 | Mostrar las variables definidas en el entorno | `ls()`                                    |                                                                                                                                           |
-| Mensajes                                      | `warning()`, `message()`                  |                                                                                                                                           |
+| Mensajes                                      | `stop()`, `warning()`, `message()`        |                                                                                                                                           |
 | Traza                                         | Tras una ejecución fallida, `traceback()` |                                                                                                                                           |
 | Punto de ruptura (*breakpoint)*               | `browser()`                               | Cuando entra en el ambiente de debug, con `get("var")` saca las variables locales (¿A veces? R hace cosas RaRas), y `Q` sale del debuggeo |
 | Debug                                         | `debug(función)`                          | Para salir, `undebug()`                                                                                                                   |
