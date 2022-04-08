@@ -7,12 +7,13 @@
 
 ### Estructuras de datos
 
-| **Constructores** | **Expresiones**                                   | **Comentarios**                                                                                             |
-|:------------------|:--------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| Secuencias        | `n:m` </br> `seq(from, to, by)` </br> `rep`       |                                                                                                             |
-| Vectores          | `c(valor1,  valor2)` </br> `vector(type, length)` | Puedes asignar nombres a los valores con names(v). type corresponde al tipo base,</br> eg logical o numeric |
-| Matrices          | `matrix(data, nrow, ncol)`                        |                                                                                                             |
-| Listas            | `list()`                                          |                                                                                                             |
+| **Constructores**                   | **Expresiones**                                   | **Comentarios**                                                     |
+|:------------------------------------|:--------------------------------------------------|:--------------------------------------------------------------------|
+| Secuencias                          | `n:m` </br> `seq(from, to, by)` </br> `rep`       |                                                                     |
+| Vectores                            | `c(valor1,  valor2)` </br> `vector(type, length)` | `type` corresponde al tipo base. Por ejemplo, `logical` o `numeric` |
+| Matrices                            | `matrix(data, nrow, ncol)`                        |                                                                     |
+| Listas                              | `list()`                                          |                                                                     |
+| Asignar un nombre a las componentes | `names(v) <- c("nombre1", "nombre2")`             |                                                                     |
 
 #### Vectores y listas
 
