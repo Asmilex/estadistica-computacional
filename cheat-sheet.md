@@ -3,73 +3,51 @@
 
 ## Conceptos básicos de programación
 
+### Estructuras de datos
+
 | **Constructores** | **Expresiones**                                   | **Comentarios**                                                                                             |
 |:------------------|:--------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
 | Secuencias        | `n:m` </br> `seq` </br> `rep`                     |                                                                                                             |
 | Vector            | `c(valor1,  valor2)` </br> `vector(type, length)` | Puedes asignar nombres a los valores con names(v). type corresponde al tipo base,</br> eg logical o numeric |
-| Matrices          | `matrix(data, nrow, ncol)`                        |                                                                                                             |
-| Arrays            |                                                   |                                                                                                             |
-| Listas            | `list()`                                          |                                                                                                             |
+| Matrices          | `matrix(data, nrow, ncol)`                        | .                                                                                                           |
+| Listas            | `list()`                                          | .                                                                                                           |
 
-Si x es un vector,
-| **Vectores**      | **Expresiones**                                   | **Comentarios**                                            |
-|:------------------|:--------------------------------------------------|:-----------------------------------------------------------|
-| Subseteo          | `x[cond(x)]`                                      | Donde cond devuelve un vector lógico indicando los índices |
-| Índices ordenados | `order(x)`                                        |                                                            |
-| Vector ordenado   | `sort(x)`                                         |                                                            |
-|                   | `which`                                           | Da los índices de los cuales la condición es verdadera     |
-| Otras funciones   | `sum`<br> `prod` <br> `min`<br> `max` <br> `mean` |                                                            |
-| Atributos         | `mode` <br> `typeof` <br> `length`                |                                                            |
+#### Vectores
 
-Dado un vector x, con valores
-| **Factores** | **Expresiones** | **Comentarios** |
-|:-------------|:----------------|:----------------|
-|              | `factor(x)`     |                 |
+| **Vectores**      | **Expresiones**                    | **Comentarios**                                            |
+|:------------------|:-----------------------------------|:-----------------------------------------------------------|
+| Subseteo          | `x[cond(x)]`                       | Donde cond devuelve un vector lógico indicando los índices |
+| Índices ordenados | `order(x)`                         |                                                            |
+| Vector ordenado   | `sort(x)`                          |                                                            |
+|                   | `which`                            | Da los índices de los cuales la condición es verdadera     |
+| Atributos         | `mode` <br> `typeof` <br> `length` | .                                                          |
 
-Dada una matrix M,
+#### Matrices
+
 | **Matrices**                       | **Expresiones** | **Comentarios** |
 |:-----------------------------------|:----------------|:----------------|
-| Multiplicación elemento a elemento | `*`             |                 |
-| Multiplicación matricial           | `%*%`           |                 |
-| Inversa                            | `solve(A)`      |                 |
-|                                    |                 |                 |
+| Multiplicación elemento a elemento | `*`             | .               |
+| Multiplicación matricial           | `%*%`           | .               |
+| Inversa                            | `solve(A)`      | .               |
 
-### Listas
+#### Listas
 
 | **Concepto** | **Expresiones**           | **Comentarios**         |
 |:-------------|:--------------------------|:------------------------|
 | Indexeo      | `[]` <br> `[[]]` <br> `$` | Por índice o por nombre |
-|              |                           |                         |
 | Otros        | `str`<br> `summary`       |                         |
 
-### Dataframes
-Dado un Dataframe df,
+#### Dataframes
+
 | **Concepto**     | **Expresiones**                              | **Comentarios**                                                                                                         |
 |:-----------------|:---------------------------------------------|:------------------------------------------------------------------------------------------------------------------------|
-| Constructor      | data.frame(columna1, columna2, ...)          |                                                                                                                         |
+| Constructor      | `data.frame(columna1, columna2, ...)`        | .                                                                                                                       |
 | Indexeo          | `df[v]`<br> `df[v1, v2]`                     | Como lista: selecciona columnas <br> Como matriz: selecciona elementos                                                  |
-|                  | `subset(df, subset)`                         | Donde el argumento subset es una expresión lógica indicado las filas a tomar                                            |
-| Previsualización | `head` <br>  `tail`                          |                                                                                                                         |
+|                  | `subset(df, subset)`                         | Donde el argumento subset es una expresión lógica indicando las filas a tomar                                           |
+| Previsualización | `head` <br>  `tail`                          | .                                                                                                                       |
 | Transformaciones | `transform(df, expresión1, expresión2, ...)` | Añade las filas calculadas por las expresiones dadas                                                                    |
 |                  | `within(df, z <- expr)`                      | Añade la columna de nombre 'z' calculada por la expresión. <br>Se pueden añadir varias columnas metiéndolo en un bloque |
 
-| **Operadores** | **Expresiones** | **Comentarios** |
-|:---------------|:----------------|:----------------|
-| Ariméticas     | `+ - * / ^`     |                 |
-| Módulo         | `%%`            |                 |
-| Divisón entera | `%/%`           |                 |
-| Lógicas        | `! & && \| \|\| xor(x,y)` | Los operadores dobles (&& y ||) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento |
-
-| **Funciones incluidas** | **Expresiones**                       | **Comentarios** |
-|:------------------------|:--------------------------------------|:----------------|
-| Redondeo                | `trunc` </br> `floor` </br> `ceiling` |                 |
-| Gamma                   | `gamma`                               |                 |
-|                         |                                       |                 |
-### Lectura de ficheros
-| **Funciones incluidas** | **Expresiones** | **Comentarios** |
-|:------------------------|:----------------|:----------------|
-|                         |                 |                 |
-## Funciones
 ### Operadores
 
 | **Operadores** | **Expresiones**             | **Comentarios**                                                                                                                                                   |
@@ -79,13 +57,6 @@ Dado un Dataframe df,
 | Divisón entera | `%/%`                       | .                                                                                                                                                                 |
 | Lógicas        | `!, &, &&, |, ||, xor(x,y)` | Los operadores dobles (`&&` y `||`) cortocircuitan. </br> Los simples funcionan vectorialmente elemento a elemento. Mejor usa los dobles que no hacen cosas raras |
 
-### Estructuras de datos
-
-| **Estructura** | **Expresiones**                                   | **Comentarios**                                                                                             |
-|:---------------|:--------------------------------------------------|:------------------------------------------------------------------------------------------------------------|
-| Secuencias     | `n:m` </br> `seq` </br> `rep`                     | .                                                                                                           |
-| Vector         | `c(valor1,  valor2)` </br> `vector(type, length)` | Puedes asignar nombres a los valores con names(v). type corresponde al tipo base,</br> eg logical o numeric |
-| Matrices       | `matrix(data, nrow, ncol)`                        | .                                                                                                           |
 
 ### Flujo de control
 
@@ -114,6 +85,9 @@ Dado un Dataframe df,
 | Número variable de argumentos en una función | `function(parámetros obligatorios, ...)` | .                                                                                                                                                                                                                                   |
 | Argumentos omitidos                          | `missing(argumento)`                     | Es especialmente útil cuando se cita directamente los parámetros de una función (`f(x = 1, y = 2, w = 4) => missing(z)`)                                                                                                            |
 
+
+## idiosincrasia de R
+
 ### La familia `apply` y otras funciones similares
 
 | **Concepto**           | **Expresiones**                                          | **Comentarios**                                                                                                                             |
@@ -127,7 +101,6 @@ Dado un Dataframe df,
 | Productorio            | `prod(x)`                                                | .                                                                                                                                           |
 | Sumatoria; acumulación | `sum(x)`                                                 | .                                                                                                                                           |
 
-## idiosincrasia de R
 
 ### Distribuciones estadísticas, aleatoriedad y otros conceptos similares
 
