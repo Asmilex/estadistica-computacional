@@ -88,7 +88,7 @@
 | Argumentos omitidos                          | `missing(argumento)`                     | Es especialmente útil cuando se cita directamente los parámetros de una función (`f(x = 1, y = 2, w = 4) => missing(z)`)                                                                                                            |
 
 
-## idiosincrasia de R
+## idiosincrasias de R
 
 ### La familia `apply` y otras funciones similares
 
