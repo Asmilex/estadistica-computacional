@@ -58,7 +58,7 @@
 | `aggregate`  | `aggregate(df$variable, by = list(df$factor), summary)`  | Resume las columnas de un data frame para cada uno de los niveles de un factor.                                                             |
 | `tapply`     | `tapply(df$variable, df$factor, summary)`                | Igual que lo anterior                                                                                                                       |
 
-## Ideosincracias de R
+## idiosincrasia de R
 
 ### Distribuciones estadísticas y aleatoriedad
 
