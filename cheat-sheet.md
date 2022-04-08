@@ -9,7 +9,7 @@
 | Secuencias                          | `n:m` </br> `seq(from, to, by)` </br> `rep(vec, ...)` |                                                                     |
 | Vectores                            | `c(valor1,  valor2)` </br> `vector(type, length)`     | `type` corresponde al tipo base. Por ejemplo, `logical` o `numeric` |
 | Matrices                            | `matrix(data, nrow, ncol)`                            |                                                                     |
-| Listas                              | `list()`                                              |                                                                     |
+| Listas                              | `list(name = "Priest", hp = 20)`                      |                                                                     |
 | Asignar un nombre a las componentes | `names(v) <- c("nombre1", "nombre2")`                 |                                                                     |
 
 #### Vectores y listas
