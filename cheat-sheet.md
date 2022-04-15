@@ -4,24 +4,26 @@
 ## Conceptos básicos de programación
 ### Estructuras de datos
 
-| **Constructores**                   | **Expresiones**                                       | **Comentarios**                                                     |
-|:------------------------------------|:------------------------------------------------------|:--------------------------------------------------------------------|
-| Secuencias                          | `n:m` </br> `seq(from, to, by)` </br> `rep(vec, ...)` |                                                                     |
-| Vectores                            | `c(valor1,  valor2)` </br> `vector(type, length)`     | `type` corresponde al tipo base. Por ejemplo, `logical` o `numeric` |
-| Matrices                            | `matrix(data, nrow, ncol)`                            |                                                                     |
-| Listas                              | `list(name = "Priest", hp = 20)`                      |                                                                     |
-| Asignar un nombre a las componentes | `names(v) <- c("nombre1", "nombre2")`                 |                                                                     |
+| **Constructores**                   | **Expresiones**                                   | **Comentarios**                                                                                                             |
+|:------------------------------------|:--------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| Secuencias                          | `n:m` </br> `seq(from, to, by)` </br> `rep`       |                                                                                                                             |
+| Vectores                            | `c(valor1,  valor2)` </br> `vector(type, length)` | `type` corresponde al tipo base. Por ejemplo, `logical` o `numeric`. Por ejemplo: `vector("logical", 3) == c(FALSE, FALSE)` |
+| Matrices                            | `matrix(data, nrow, ncol)`                        |                                                                                                                             |
+| Listas                              | `list()`                                          |                                                                                                                             |
+| Asignar un nombre a las componentes | `names(v) <- c("nombre1", "nombre2")`             |                                                                                                                             |
 
 #### Vectores y listas
 
 | **Vectores**                                           | **Expresiones**            | **Comentarios**                                                                                                                                                                                                   |
 |:-------------------------------------------------------|:---------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Longitud                                               | `length(x)`                |                                                                                                                                                                                                                   |
+| Longitud                                               | `length(v)`                |                                                                                                                                                                                                                   |
+| *Resizing*                                             | `length(v) <- valor`       |                                                                                                                                                                                                                   |
 | Filtrar elementos                                      | `x[condición]`             | Donde `condición` devuelve un vector lógico indicando los índices. Ejemplo: `x[x > 3]`                                                                                                                            |
 | Obtener índices de elementos que cumplen una condición | `which(condición sobre x)` | Da los índices para los cuales la condición es cierta. Ejemplos: <br>`which(LETTERS == "R")`<br>`which((1:12)%%2 == 0) # which are even?`<br>`which(ll <- c(TRUE, FALSE, TRUE, NA, FALSE, FALSE, TRUE)) #> 1 3 7` |
 | Índices ordenados                                      | `order(x)`                 | Tiene muchos parámetros. Merece la pena [echarle un ojo](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/order)                                                                                |
 | Vector ordenado                                        | `sort(x)`                  |                                                                                                                                                                                                                   |
 | Atributos                                              | `mode(x)` <br> `typeof(x)` |                                                                                                                                                                                                                   |
+| Eliminar elemento en una cierta posición               | `x[-indice(s)]`            | Ejemplo: `x[-c(2, 3)]` devuelve el vector sin las posiciones 2 y 3                                                                                                                                                |
 
 #### Matrices
 
@@ -95,18 +97,27 @@
 
 ## idiosincrasias de R
 
+### Factores
+
+| **Concepto**    | **Expresiones**                          | **Comentarios**                                                         |
+|:----------------|:-----------------------------------------|:------------------------------------------------------------------------|
+| Crear un factor | `v.factores <- factor(array de valores)` | Por ejemplo, `array de valores = c(1, 2, 3, 2, 1, 3, 2)`.               |
+| Niveles         | `levels()`                               | Codifica enteros a strings. Ejemplo: `sexo.f <- factor(c(1,,2,2,1,2,1),labels=c('hombre','mujer'))` |
+
+
+
 ### La familia `apply` y otras funciones similares
 
-| **Concepto**           | **Expresiones**                                          | **Comentarios**                                                                                                                             |
-|:-----------------------|:---------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
-| `lappy`                | `lappy(contenedor, función a aplicar)`                   | Devuelve una lista. De ahí la `l`.                                                                                                          |
-| `sapply`               | `sapply(contenedor, función a aplicar)`                  | Simplifica el retorno. Creo que devuelve un vector                                                                                          |
-| `apply`                | `apply(contenedor, MARGIN, función, ..., simplify=TRUE)` | `MARGIN` controla la dimensión a la que se le aplica la función. [Más info](https://bookdown.org/jboscomendoza/r-principiantes4/apply.html) |
-| `split`                | `split(contenedor, criterio)`                            | Un criterio típico suele ser clasificar por factor. Por ejemplo: `split(Orange, Orange$Tree)`. Se le puede pasar también una función        |
-| `aggregate`            | `aggregate(df$variable, by = list(df$factor), summary)`  | Resume las columnas de un data frame para cada uno de los niveles de un factor.                                                             |
-| `tapply`               | `tapply(df$variable, df$factor, summary)`                | Igual que lo anterior                                                                                                                       |
-| Productorio            | `prod(x)`                                                |                                                                                                                                             |
-| Sumatoria; acumulación | `sum(x)`                                                 |                                                                                                                                             |
+| **Concepto** | **Expresiones**                                          | **Comentarios**                                                                                                                             |
+|:-------------|:---------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
+| `lappy`      | `lappy(contenedor, función a aplicar)`                   | Devuelve una lista. De ahí la `l`.                                                                                                          |
+| `sapply`     | `sapply(contenedor, función a aplicar)`                  | Simplifica el retorno. Creo que devuelve un vector                                                                                          |
+| `apply`      | `apply(contenedor, MARGIN, función, ..., simplify=TRUE)` | `MARGIN` controla la dimensión a la que se le aplica la función. [Más info](https://bookdown.org/jboscomendoza/r-principiantes4/apply.html) |
+| `split`      | `split(contenedor, criterio)`                            | Un criterio típico suele ser clasificar por factor. Por ejemplo: `split(Orange, Orange$Tree)`. Se le puede pasar también una función        |
+| `aggregate`  | `aggregate(df$variable, by = list(df$factor), summary)`  | Resume las columnas de un data frame para cada uno de los niveles de un factor.                                                             |
+| `tapply`     | `tapply(df$variable, df$factor, summary)`                | Igual que lo anterior                                                                                                                       |
+| Productorio  | `prod(x)` <br> `cumprod(x)`                              |                                                                                                                                             |
+| Sumatoria    | `sum(x)` <br> `cumsum(x)`                                |                                                                                                                                             |
 
 
 ### Distribuciones estadísticas, aleatoriedad y otros conceptos similares
@@ -134,7 +145,10 @@
 
 ## Otras movidas que no sé dónde poner ahora mismo
 
-| **Concepto**       | **Expresiones**     | **Comentarios**                                                                                                                                                                                                                                                                                                                       |
-|:-------------------|:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Regla de reciclaje | .                   | En general, R siempre va a intentar aplicar lo que le pidas como buenamente pueda. Eso significa que si faltan elementos en un vector, o se le aplica una función escalar a un vector, se aplicará al resto de dimensiones volviendo a usar los valores existentes. Por ejemplo, `log(vector)` aplica el logaritmo a cada componente. |
-| Otros              | `str`<br> `summary` |                                                                                                                                                                                                                                                                                                                                       |
+| **Concepto**                            | **Expresiones**                                   | **Comentarios**                                                                                                                                                                                                                                                                                                                       |
+|:----------------------------------------|:--------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Regla de reciclaje                      | .                                                 | En general, R siempre va a intentar aplicar lo que le pidas como buenamente pueda. Eso significa que si faltan elementos en un vector, o se le aplica una función escalar a un vector, se aplicará al resto de dimensiones volviendo a usar los valores existentes. Por ejemplo, `log(vector)` aplica el logaritmo a cada componente. |
+| Concatenación extraña de cadenas        | `paste(string, string, sep)`                      | Ejemplo: `paste(c("X", "Y"), 1:10, sep = "") == ["X1", "Y2", "X3"...]`                                                                                                                                                                                                                                                                |
+| Familia de funciones `is.()`            | `is.na()` <br> `is.integer()` <br> `is.numeric()` |                                                                                                                                                                                                                                                                                                                                       |
+| Comparación de números en coma flotante | `all.equal()`                                     | Se salta los problemas de redondeo de números en coma flotante. Por ejemplo, `all.equal(0.3 - 0.2, 0.1) == TRUE`, `all.equal(sqrt(3)^2, 3) == TRUE`                                                                                                                                                                                   |
+| Otros                                   | `str`<br> `summary`                               |                                                                                                                                                                                                                                                                                                                                       |
