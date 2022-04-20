@@ -108,7 +108,13 @@
 | Crear un factor | `v.factores <- factor(array de valores)` | Por ejemplo, `array de valores = c(1, 2, 3, 2, 1, 3, 2)`.                                           |
 | Niveles         | `levels()`                               | Codifica enteros a strings. Ejemplo: `sexo.f <- factor(c(1,,2,2,1,2,1),labels=c('hombre','mujer'))` |
 
+### Agregando por factores
 
+| **Concepto** | **Expresiones**                                    | **Comentarios**                                                                                                                      |
+|:-------------|:---------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| `split`      | `split(contenedor, criterio)`                      | Un criterio típico suele ser clasificar por factor. Por ejemplo: `split(Orange, Orange$Tree)`. Se le puede pasar también una función |
+| `tapply`     | `tapply(contenedor, INDEX = criterio(s), función)` | Muy similar a aggregate. Hace un `split`  de acuerdo con el/los factores y aplica la función a cada subconjunto.                     |
+| `aggregate`  | `aggregate(contenedor, by = criterio(s), función)` | Aplica funciones a subconjuntos de un df determinados por *una lista* de factores. Esa lista sí puede tener un sólo elemento         |
 
 ### La familia `apply` y otras funciones similares
 
@@ -117,9 +123,6 @@
 | `lappy`      | `lappy(contenedor, función a aplicar)`                   | Devuelve una lista. De ahí la `l`.                                                                                                          |
 | `sapply`     | `sapply(contenedor, función a aplicar)`                  | Simplifica el retorno. Creo que devuelve un vector                                                                                          |
 | `apply`      | `apply(contenedor, MARGIN, función, ..., simplify=TRUE)` | `MARGIN` controla la dimensión a la que se le aplica la función. [Más info](https://bookdown.org/jboscomendoza/r-principiantes4/apply.html) |
-| `split`      | `split(contenedor, criterio)`                            | Un criterio típico suele ser clasificar por factor. Por ejemplo: `split(Orange, Orange$Tree)`. Se le puede pasar también una función        |
-| `aggregate`  | `aggregate(df$variable, by = list(df$factor), summary)`  | Resume las columnas de un data frame para cada uno de los niveles de un factor.                                                             |
-| `tapply`     | `tapply(df$variable, df$factor, summary)`                | Igual que lo anterior                                                                                                                       |
 | Productorio  | `prod(x)` <br> `cumprod(x)`                              |                                                                                                                                             |
 | Sumatoria    | `sum(x)` <br> `cumsum(x)`                                |                                                                                                                                             |
 
@@ -145,7 +148,7 @@
 | Mensajes                                      | `stop()`, `warning()`, `message()`        |                                                                                                                                           |
 | Traza                                         | Tras una ejecución fallida, `traceback()` |                                                                                                                                           |
 | Punto de ruptura (*breakpoint)*               | `browser()`                               | Cuando entra en el ambiente de debug, con `get("var")` saca las variables locales (¿A veces? R hace cosas RaRas), y `Q` sale del debuggeo |
-| Debug                                         | `debug(función)`                          | Para salir, `undebug(función)`                                                                                                                   |
+| Debug                                         | `debug(función)`                          | Para salir, `undebug(función)`                                                                                                            |
 
 ## Otras movidas que no sé dónde poner ahora mismo
 
