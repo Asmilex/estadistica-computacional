@@ -72,7 +72,7 @@ progresion_aritmetica <- function(n, a1, d) {
 progresion_aritmetica(2, 1, 1)
 
 progresion_aritmetica_v2 <- function(n, a1, d, explicit = FALSE) {
-    v <- a1 + d * 1:n
+    v <- a1 + d * 0:(n - 1)
 
     if (!explicit) {
         list(
@@ -84,9 +84,9 @@ progresion_aritmetica_v2 <- function(n, a1, d, explicit = FALSE) {
         list(
             elementos = v,
             suma      = n * (a1 + v[n]) / 2,
-            producto  = d^n * gamma(a1 / d + n + 1) / gamma(a1 / d + 1)
+            producto  = d^n * gamma(a1 / d + n) / gamma(a1 / d)
         )
     }
 }
 
-progresion_aritmetica_v2(2, 1, 1, TRUE)
+progresion_aritmetica_v2(n = 3, a1 = 1, d = 1, explicit = TRUE)
