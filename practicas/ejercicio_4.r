@@ -20,9 +20,11 @@ censo <- read.csv(
 
 # b)
 str(censo)
+lapply(censo, class)
 
 # c)
 lapply(censo, function(x) sum(is.na(x)))
+lapply(lapply(censo, is.na), sum)
 
 # d)
 complete.cases(censo)

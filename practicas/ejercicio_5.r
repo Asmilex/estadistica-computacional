@@ -138,3 +138,58 @@ medias(0:10)
 medias(-1:10)
 
 # --------------------------------------------------------------------------------
+
+mediana <- function(x) {
+    if (missing(x) || !is.numeric(x)) {
+        stop("x debe ser un vector numérico")
+    }
+
+    x <- x[!is.na(x)]
+    x_ordenado <- sort(x)
+    n <- length(x)
+
+    if (n %% 2 == 0) {
+        mediana <- (x_ordenado[n / 2] + x_ordenado[n / 2 + 1]) / 2
+    } else {
+        mediana <- x_ordenado[(n + 1) / 2]
+    }
+
+    mediana
+}
+mediana(1:5)
+mediana(1:6)
+
+cuartiles <- function(x) {
+    if (missing(x) || !is.numeric(x)) {
+        stop("x debe ser un vector numérico")
+    }
+
+    x <- x[!is.na(x)]
+    x_ordenado <- sort(x)
+    n <- length(x)
+
+    posicion_Q1 <- (n + 1) / 4
+    i <- trunc(posicion_Q1)
+    Q1 <- x_ordenado[i] + (posicion_Q1 - i) * (x_ordenado[i + 1] - x_ordenado[i])
+
+    Q2 <- if (n %% 2 == 0) {
+        (x_ordenado[n / 2] + x_ordenado[n / 2 + 1]) / 2
+    } else {
+        x_ordenado[(n + 1) / 2]
+    }
+
+    posicion_Q3 <- (n + 1) * 3 / 4
+    i <- trunc(posicion_Q3)
+    Q3 <- x_ordenado[i] + (posicion_Q3 - i) * (x_ordenado[i + 1] - x_ordenado[i])
+
+    list(
+        Q1 = Q1,
+        Q2 = Q2,
+        Q3 = Q3
+    )
+}
+
+cuartiles(1:9)
+cuartiles(1:10)
+quantile(1:9, c(.25, .5, .75))
+quantile(1:10, c(.25, .5, .75))
