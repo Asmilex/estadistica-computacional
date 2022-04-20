@@ -34,6 +34,7 @@ sapply(lista, sum) # Devuelve un vector
 reg <- lm(y ~ x)
 typeof(reg)
 is.list(reg)
+reg
 
 # e)
 attributes(reg)
@@ -122,18 +123,44 @@ summary(ChickWeight)
 # d)
 peso.dieta <- tapply(ChickWeight$weight, ChickWeight$Diet, summary)
 typeof(peso.dieta)
+peso.dieta
 
 # e)
 peso.dieta.2 <- as.data.frame(matrix(
     unlist(peso.dieta),
     nrow = length(peso.dieta)
 ))
-
 colnames(peso.dieta.2) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max.")
+peso.dieta.2
+
 
 # f)
+
+peso.dieta.2 <- aggregate(
+    ChickWeight$weight,
+    by = list(ChickWeight$Diet),
+    summary
+)
+peso.dieta.2
+class(peso.dieta.2)
+
 # g)
-# h)
-# i)
-# j)
-# k)
+Chick100 <- ChickWeight[sample(rownames(ChickWeight), 100), ]
+Chick100
+
+# h) Columnas permutadas aleatoriamente
+p <- ncol(Chick100)
+Chick100[, sample(1:p, p, replace = FALSE)]
+
+# i) Columnas por orden alfabético
+Chick100[1, order(colnames(Chick100))]
+
+# j) Ordenación según diet
+Chick100[order(Chick100$Diet), ]
+
+# k) Ordenación según diet y weight
+Chick100[order(Chick100$Diet, Chick100$weight), ]
+
+# submuestra conteniendo solo una observación para cada tipo de dieta
+new <- Chick100[rev(order(Chick100$weight)), ]
+new[!duplicated(new$Diet), ]
