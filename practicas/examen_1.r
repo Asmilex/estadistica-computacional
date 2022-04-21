@@ -19,18 +19,20 @@ sx
 
 # Número de elementos que disten de mx más de sx unidades
 length(x[abs(x - mx) > sx])
+x[abs(x - mx) > sx]
 
 # Sustituye los elementos del apartado anterior por NA
 x[abs(x - mx) > sx] <- NA
 x
 
 # Cuenta cuántos elementos múltiplos de 3 hay en x
-# TOOD: usa sum con una lambda para esto
-length(x[x %% 3 == 0])
-sub_x <- x[x %% 3 == 0]
-sub_x <- sub_x[!is.na(sub_x)]
-length(sub_x)
-
+multiplos_de_3 <- Filter(
+    function(x) {
+        x %% 3 == 0 && !is.na(x)
+    },
+    x
+)
+length(multiplos_de_3)
 
 #
 # -------------------------------------------------------------- EJERCICIO 2 -----
@@ -41,8 +43,11 @@ aire <- airquality
 str(aire)
 summary(aire)
 
-# Count the number of NA
+# Numero de NAs en total
 sum(is.na(aire))
+
+# Contar el numero de NA en cada columna
+colSums(is.na(aire))
 
 # Quitar las filas con NAs
 aire_sin_na <- aire[complete.cases(aire), ]
@@ -50,15 +55,12 @@ aire_sin_na
 
 # contar las filas de aire_sin_na
 nrow(aire_sin_na)
-nrow(aire_sin_na) == nrow(aire) - sum(is.na(aire))
-
-# Parece que faltan 2, pero no hay NAs en aire_sin_na?
 sum(is.na(aire_sin_na))
 
 # Convierte la columna month en un factor
-
+aire_sin_na$Month
 aire_sin_na$Month <- factor(aire_sin_na$Month, labels = c("Mayo", "Junio", "Julio", "Agosto", "Septiembre"))
-# Alternativamente,
+# Alternativamente, podemos usar el vector month.name, seleccionando únicamente el rango de meses que hay en el df
 # aire_sin_na$Month <- factor(aire_sin_na$Month, labels = month.name[5:9])
 aire_sin_na$Month
 
