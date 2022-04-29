@@ -144,8 +144,35 @@
 | Mostrar las variables definidas en el entorno | `ls()`                                    |                                                                                                                                           |
 | Mensajes                                      | `stop()`, `warning()`, `message()`        |                                                                                                                                           |
 | Traza                                         | Tras una ejecución fallida, `traceback()` |                                                                                                                                           |
-| Punto de ruptura (*breakpoint)*               | `browser()`                               | Cuando entra en el ambiente de debug, con `get("var")` saca las variables locales (¿A veces? R hace cosas RaRas), y `Q` sale del debuggeo |
+| Punto de ruptura *(breakpoint)*               | `browser()`                               | Cuando entra en el ambiente de debug, con `get("var")` saca las variables locales (¿A veces? R hace cosas RaRas), y `Q` sale del debuggeo |
 | Debug                                         | `debug(función)`                          | Para salir, `undebug(función)`                                                                                                            |
+
+### Plotting
+Orden de dibujado `plot` es "high level"</br> `abline`, `curve` etc. se le llaman "low level". </br> Las "low level" dibujan sobre un gráfico ya creado anteriormente por `plot`
+
+#### Algunos argumentos de `plot`
+| **Concepto** | **Expresiones**                     | **Comentarios**                                                     |
+|:-------------|:------------------------------------|:--------------------------------------------------------------------|
+| Lo básico    | `plot(y)` <br> `plot(x, y)`         | En el primer caso, R usa "Index plotting": `x = 1:length(y)`        |
+| Estilo       | `type` <br> `col`                   | Tipo de gráfico (puntos `p`, líneas `l`, histograma `h`) <br> Color |
+| Anotaciones  | `main` <br> `sub` <br> `xlab, ylab` | Título <br> Subtítulo <br> Etiquetas de ejes                        |
+
+#### Otras funciones de plotting "high level"
+| **Concepto** | **Expresiones**  | **Comentarios**                              |
+|:-------------|:-----------------|:---------------------------------------------|
+| Curvas       | `curve(función)` |                                              |
+| Formas       | `symbols`        | Dibujar polígonos, estrellas, círculos, etc. |
+
+#### Plotting "low level"
+Dibujando encima de plots
+| **Concepto** | **Expresiones**                 | **Comentarios**                                                                                                      |
+|:-------------|:--------------------------------|:---------------------------------------------------------------------------------------------------------------------|
+| Puntos       | `points(x,y, col, ...)`         | Dibujar puntos (o formas) en las coordenadas indicadas.                                                              |
+| Líneas       | `lines(x,y, col, ...)`          | Como points pero dibuja líneas entre las coordenadas.                                                                |
+| Recta        | `abline(h=, v=, a=, b=)`        | Dibuja rectas, horizontales, verticales o dadas por su valor en 0 y pendiente. También admite como argumento un `lm` |
+| Texto        | `text(x, y, texto)`             | Escribe el texto en las coordenadas indicadas.                                                                       |
+| Leyenda      | `legend(x, y, texto, col, lty)` | `texto`, `col` y `lty` son vectores indicando cada componente de la leyenda.                                         |
+| Título       | `title`                         |                                                                                                                      |
 
 ## Otras movidas que no sé dónde poner ahora mismo
 
