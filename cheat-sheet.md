@@ -53,6 +53,21 @@
 | Añadir columnas                                          | `within(df, z <- expr)`                                                                                             | Añade la columna de nombre `z` calculada por la expresión. <br>Se pueden añadir varias columnas metiéndolo en un bloque                                                                                                                                                                                                                                  |
 | Acceder a un elemento aleatorio de un cierto subconjunto | `sub_df <- subset(df, condición sobre df)` seguido de <br> `sub_df[sample(rownames(sub_df), número de muestras), ]` | Si quieres aplicarlo a todo el dataset, puedes obviar la primera parte                                                                                                                                                                                                                                                                                   |
 
+#### Factores
+
+| **Concepto**    | **Expresiones**                          | **Comentarios**                                                                                     |
+|:----------------|:-----------------------------------------|:----------------------------------------------------------------------------------------------------|
+| Crear un factor | `v.factores <- factor(array de valores)` | Por ejemplo, `array de valores = c(1, 2, 3, 2, 1, 3, 2)`.                                           |
+| Niveles         | `levels()`                               | Codifica enteros a strings. Ejemplo: `sexo.f <- factor(c(1,,2,2,1,2,1),labels=c('hombre','mujer'))` |
+
+##### Agregando por factores
+
+| **Concepto** | **Expresiones**                                    | **Comentarios**                                                                                                                      |
+|:-------------|:---------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| `split`      | `split(contenedor, criterio)`                      | Un criterio típico suele ser clasificar por factor. Por ejemplo: `split(Orange, Orange$Tree)`. Se le puede pasar también una función |
+| `tapply`     | `tapply(contenedor, INDEX = criterio(s), función)` | Muy similar a aggregate. Hace un `split`  de acuerdo con el/los factores y aplica la función a cada subconjunto.                     |
+| `aggregate`  | `aggregate(contenedor, by = criterio(s), función)` | Aplica funciones a subconjuntos de un df determinados por *una lista* de factores. Esa lista sí puede tener un sólo elemento         |
+
 ### Operadores
 
 | **Operadores** | **Expresiones**                                                            | **Comentarios**                                                                                                                                                                        |
@@ -89,33 +104,6 @@
 | Número variable de argumentos en una función | `function(parámetros obligatorios, ...)` |                                                                                                                                                                                                                                     |
 | Argumentos omitidos                          | `missing(argumento)`                     | Es especialmente útil cuando se cita directamente los parámetros de una función (`f(x = 1, y = 2, w = 4) => missing(z)`)                                                                                                            |
 
-### Lectura de ficheros
-
-| **Concepto**               | **Expresiones**                                | **Comentarios**                                                                                                                                                                                                                                                                              |
-|:---------------------------|:-----------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Directorio de trabajo      | `getwd()` </br> `setwd("path/al/directorio")`  |                                                                                                                                                                                                                                                                                              |
-| Leer tabla o dataframe     | `read.table()`                                 | `as.is` o `stringsAsFactors` para leerlas como factores. <br> Si el fichero incluye los nombres de las columnas, puedes hacer `read.table(..., header = TRUE)` <br> Se especifica el separador con `sep = ","`<br> `col.names` y `row.names` indican los nombres de las filas y las columnas |
-| Leer cosas más genéricas   | `scan()`                                       | Se come todo lo que le eches. Puedes escribir en el script literalmente lo que va a leer. <br> Por defecto separa por espacios en blanco: (`' '`). </br> Para saltarse headers, se pasa el argumento `skip = 1`                                                                              |
-| Cargar datos de un paquete | `data(dataset, package="nombre_del_paquete")`  | Por ejemplo, `data(coal, package="boot")` carga los datos del dataset `coal` del paquete `boot`                                                                                                                                                                                              |
-| Escribir a ficheros        | `write.table("path/al/archivo")` </br> `write` |                                                                                                                                                                                                                                                                                              |
-
-## idiosincrasias de R
-
-### Factores
-
-| **Concepto**    | **Expresiones**                          | **Comentarios**                                                                                     |
-|:----------------|:-----------------------------------------|:----------------------------------------------------------------------------------------------------|
-| Crear un factor | `v.factores <- factor(array de valores)` | Por ejemplo, `array de valores = c(1, 2, 3, 2, 1, 3, 2)`.                                           |
-| Niveles         | `levels()`                               | Codifica enteros a strings. Ejemplo: `sexo.f <- factor(c(1,,2,2,1,2,1),labels=c('hombre','mujer'))` |
-
-### Agregando por factores
-
-| **Concepto** | **Expresiones**                                    | **Comentarios**                                                                                                                      |
-|:-------------|:---------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
-| `split`      | `split(contenedor, criterio)`                      | Un criterio típico suele ser clasificar por factor. Por ejemplo: `split(Orange, Orange$Tree)`. Se le puede pasar también una función |
-| `tapply`     | `tapply(contenedor, INDEX = criterio(s), función)` | Muy similar a aggregate. Hace un `split`  de acuerdo con el/los factores y aplica la función a cada subconjunto.                     |
-| `aggregate`  | `aggregate(contenedor, by = criterio(s), función)` | Aplica funciones a subconjuntos de un df determinados por *una lista* de factores. Esa lista sí puede tener un sólo elemento         |
-
 ### La familia `apply` y otras funciones similares
 
 | **Concepto** | **Expresiones**                                          | **Comentarios**                                                                                                                             |
@@ -126,6 +114,15 @@
 | Productorio  | `prod(x)` <br> `cumprod(x)`                              |                                                                                                                                             |
 | Sumatoria    | `sum(x)` <br> `cumsum(x)`                                |                                                                                                                                             |
 
+### Lectura de ficheros
+
+| **Concepto**               | **Expresiones**                                | **Comentarios**                                                                                                                                                                                                                                                                              |
+|:---------------------------|:-----------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Directorio de trabajo      | `getwd()` </br> `setwd("path/al/directorio")`  |                                                                                                                                                                                                                                                                                              |
+| Leer tabla o dataframe     | `read.table()`                                 | `as.is` o `stringsAsFactors` para leerlas como factores. <br> Si el fichero incluye los nombres de las columnas, puedes hacer `read.table(..., header = TRUE)` <br> Se especifica el separador con `sep = ","`<br> `col.names` y `row.names` indican los nombres de las filas y las columnas |
+| Leer cosas más genéricas   | `scan()`                                       | Se come todo lo que le eches. Puedes escribir en el script literalmente lo que va a leer. <br> Por defecto separa por espacios en blanco: (`' '`). </br> Para saltarse headers, se pasa el argumento `skip = 1`                                                                              |
+| Cargar datos de un paquete | `data(dataset, package="nombre_del_paquete")`  | Por ejemplo, `data(coal, package="boot")` carga los datos del dataset `coal` del paquete `boot`                                                                                                                                                                                              |
+| Escribir a ficheros        | `write.table("path/al/archivo")` </br> `write` |                                                                                                                                                                                                                                                                                              |
 
 ### Distribuciones estadísticas, aleatoriedad y otros conceptos similares
 
