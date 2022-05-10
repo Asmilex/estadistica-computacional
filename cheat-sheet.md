@@ -174,6 +174,22 @@ Dibujando encima de plots
 | Leyenda      | `legend(x, y, texto, col, lty)` | `texto`, `col` y `lty` son vectores indicando cada componente de la leyenda.                                         |
 | Título       | `title`                         |                                                                                                                      |
 
+### Documentos
+#### Configuración de vscode
+1. Instalación de paquetes: `install.packages(c("markdown", "rmarkdown", "knitr"))`
+2. Entorno de ejecución de los chunks. Por defecto es el de el documento. Para cambiarlo al root del entorno de trabajo (eso es, donde se suelen ejecutar los comandos de los scripts):
+    1. En settings.json: `"r.rmarkdown.knit.defaults.knitWorkingDirectory": "workspace root"` para que al compilar desde la interfaz de vscode se haga desde root.
+    2. `opts_knit$set(root.dir = ".")` Hace que se ejecuten en root workspace al ejecutarse en la consola. NOTA: se debería hacer cada vez que se abre vscode
+
+
+#### Resumen
+| **Documento inicial** | **Documento final** | **Expresiones**             | **Comentarios**            |
+|:----------------------|:--------------------|:----------------------------|:---------------------------|
+| .rnw                  | .tex                | `knit("ej.Rnw")`            | Ecandena con el siguiente: |
+| .tex                  | .pdf                | `tools::texi2pdf("ej.tex")` |                            |
+| .rmd                  | .HTML               | `render("ej2.rmd")`         | Puede encadenar con        |
+| .HTML                 |                     | `browseURL(url="ej2.HTML")` |                            |
+
 ## Otras movidas que no sé dónde poner ahora mismo
 
 | **Concepto**                            | **Expresiones**                                   | **Comentarios**                                                                                                                                                                                                                                                                                                                       |
