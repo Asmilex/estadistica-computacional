@@ -1,0 +1,229 @@
+---
+title: "Práctica 9"
+date: "`r format(Sys.time(), '%d de %B de %Y')`"
+author: "Andrés Millán"
+documentclass: scrreprt
+geometry:
+- top=1.5in
+- bottom=1in
+- right=1in
+- left=1in
+
+numbersections: true
+
+mainfont: 'Crimson Pro'
+fontsize: 12pt
+monofont: 'JuliaMono'
+monofontoptions:
+ - Scale=0.6
+header-includes:
+ - \usepackage{fvextra}
+ - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+urlcolor: blue
+
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    theme: united
+    highlight: tango
+
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    highlight: tango
+---
+
+# Lectura y exploración del dataset
+
+```{r }
+hatco <- read.csv(
+  "csv/hatco2.csv",
+  colClasses = c(
+    "tamano"     = "factor",
+    "adquisic"   = "factor",
+    "tindustr"   = "factor",
+    "tsitcomp"   = "factor",
+    "nfidelidad" = "factor",
+    "nsatisfac"  = "factor"
+  )
+)
+str(hatco)
+summary(hatco)
+```
+
+```{r }
+plot(hatco[, c(6:13)])
+```
+Matices que observamos: parece que algunas de las variables son linealmente dependientes. Este sería el caso de
+
+- `imgfvent` y `imgfabri`.
+- `velocidad` y `nfidelidad`.
+- `fidelidad` y `servconj`.
+
+En general, parece que la fidelidad será útil a la hora de explicar el resto de variables.
+
+# Modelos de regresión lineal
+
+```{r }
+
+mod1 <- lm(
+  fidelidad ~ velocidad + precio + flexprec + imgfabri + servconj + imgfvent + calidadp,
+  hatco
+)
+mod1
+
+summary(mod1)
+
+anova(mod1)
+```
+
+Con un nivel de significación del 5%, podemos decir que las únicas variables que sí parecen tener influencia son: `flexprec`, `servconj`. Son las únicas variables cuyo p-valor se queda por debajo del 0.05. Sin embargo, no podemos obviar las otras variables, pues este test no es suficiente para (des)confirmar su influencia.
+
+En este caso, su p-valor es de 0.044. Por tanto, con un nivel de significación del 5%, obtendríamos que no podemos prescindir del término. Sin embargo, con un n.s. del 1%, sí que aceptamos la hipótesis nula.
+
+
+```{r }
+residuos <- rstandard(mod1)
+y_gorritos <- mod1$fitted.values
+
+plot(y_gorritos, residuos)
+```
+
+No parece que podamos distiguir ninguna forma en particular, así que podemos asumir que no hay patrones no aleatorios.
+
+```{r}
+
+plot(hatco$empresa, residuos)
+```
+
+Tampoco podemos observar patrones no aleatorios, lo cual es una buena señal.
+
+```{r}
+library("lmtest")
+dwtest(mod1)
+```
+
+```{r }
+ks.test(y_gorritos, residuos)
+
+qqnorm(y_gorritos)
+qqnorm(residuos)
+```
+
+En principio, observamos que se asemeja bastante a una normal, por lo que rechazamos la hipótesis de que no es normal.
+
+```{r}
+library("car")
+crPlots(mod1)
+```
+
+Localizar las empresas con un residuo estandarizado superior a 2.5:
+
+```{r}
+hatco[abs(residuos) > 2.5, ]
+# Alternativamente, podmos hacer
+#   residuos[abs(residuos) > 2.5, ]
+# Para sacar el valor que toman los residuos junto con la empresa.
+```
+
+Únicamente localizamos un par de empresas con residuo mayor que 2.5 en valor absoluto.
+
+```{r}
+cooks.distance(mod1)
+hatvalues(mod1)
+```
+
+```{r}
+plot(hatco$empresa, cooks.distance(mod1))
+```
+
+Con la función `cooks.distance()`, observamos que hay una empresa que destaca especialmente, con una distancia de `0.12`.
+
+```{r}
+plot(hatco$empresa, hatvalues(mod1))
+```
+
+Al representar lo mismo con `hatvalues()`, vemos que sobresalen dos de ellas, ambas con un valor aproximado de `0.35`.
+
+`influenceIndexPlot()` nos da más información sobre las empresas más influyentes en el dataset:
+
+```{r}
+influenceIndexPlot(mod1)
+```
+
+Destacan en particulas las empresas `7`, `22`, `55` y `100`. Vamos a eliminar la `7` y la `100`:
+
+```{r}
+hatco <- hatco[-c(7, 100), ]
+```
+
+Ajustamos el modelo:
+
+
+```{r}
+mod2 <- lm(
+  fidelidad ~ velocidad + precio + flexprec + imgfabri + servconj + imgfvent + calidadp,
+  hatco
+)
+mod2
+summary(mod2)
+anova(mod2)
+```
+
+El valor de los residuos se ha decrementado. En general el modelo es más sólido.
+
+## Estudio de la multicolinealidad
+
+
+```{r}
+R <- cor(hatco[, 6:12])
+ai <- eigen(R)$values # Eigenvalues de R
+```
+
+Comprobamos que el índice de condicionamiento está por debajo de 30:
+
+```{r}
+sqrt(max(ai) / min(ai)) # Índice IC
+
+sqrt(max(ai) / min(ai)) < 30
+```
+
+¿Están todos los factores inflados de la varianza VIF por debajo de 10?
+
+```{r}
+vif(mod2)
+```
+
+No, no es cierto. Vemos que `velocidad`, `precio` y `servconj` tienen un valor superior a 30. Concluimos por tanto que existe un problema de multicolinealidad en el modelo ajustado.
+
+## Selección de variables explicativas
+
+Buscamos simplificar el modelo mediante selección de variables. Para ello, hacmeos `step()`:
+
+```{r}
+step(mod2)
+```
+
+```{r}
+step(mod2, direction = "both")
+```
+
+Con el procedimiento `backwards`, el modelo generado es
+
+```
+lm(formula = fidelidad ~ flexprec + servconj + imgfvent + cali
+    data = hatco)
+```
+
+Mientras que con `backward-forward`, se genera
+
+```
+lm(formula = fidelidad ~ flexprec + servconj + imgfvent + cali
+    data = hatco)
+```
+
+Así que el modelo generado es el mismo al final.
