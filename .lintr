@@ -1,4 +1,4 @@
 linters: with_defaults(
-    line_length_linter    = line_length_linter(3000),
-    commented_code_linter = NULL,
-)
+    line_length_linter = line_length_linter(3000),
+    commented_code_linter = NULL
+    )
