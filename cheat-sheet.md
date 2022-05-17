@@ -214,19 +214,19 @@ A partir de la combinación de un prefijo indicando qué tipo de valores y un su
 </td>
 <td>
 
-| **Sufijo** | **Distribución**      |
-|:-----------|:----------------------|
-| `unif`     |                       |
-| `norm`     |                       |
-| `pois`     | Poisson               |
-| `t`        |                       |
-| `f`        |                       |
-| `chisq`    | Chi cuadrado $\chi^2$ |
-| `binom`    |                       |
-| `geom`     |                       |
-| `exp`      |                       |
-| `gamma`    |                       |
-| `weibull`  |                       |
+| **Sufijo** | **Distribución** |
+|:-----------|:-----------------|
+| `unif`     |                  |
+| `norm`     |                  |
+| `pois`     | Poisson          |
+| `t`        |                  |
+| `f`        |                  |
+| `chisq`    | Chi cuadrado     |
+| `binom`    |                  |
+| `geom`     |                  |
+| `exp`      |                  |
+| `gamma`    |                  |
+| `weibull`  |                  |
 </table>
 
 ## Otras movidas que no sé dónde poner ahora mismo
