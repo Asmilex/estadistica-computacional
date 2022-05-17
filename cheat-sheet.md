@@ -214,7 +214,7 @@ A partir de la combinación de un prefijo indicando qué tipo de valores y un su
 |------------------|--------|--------|---------|-----|-----|--------------|---------|--------|-------|---------|-----------|
 | **Distribución** |        |        | Poisson |     |     | Chi cuadrado |         |        |       |         |           |
 </tr>
-</  td>
+</td>
 </table>
 
 ## Otras movidas que no sé dónde poner ahora mismo
