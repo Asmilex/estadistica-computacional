@@ -201,32 +201,20 @@ Dibujando encima de plots
 A partir de la combinación de un prefijo indicando qué tipo de valores y un sufijo indicando la distribución se nombra a toda una familia de funciones de R.
 
 <table>
-<tr><th>Prefijos</th><th>Sufijos</th></tr>
+<td>
 <tr>
-<td>
 
-| **Prefijo** | **Resultado**           |
-|:------------|:------------------------|
-| `r`         | Muestra                 |
-| `d`         | Función de densidad     |
-| `p`         | Función de distribución |
-| `q`         | Cuantiles               |
-</td>
-<td>
+| **Prefijo**   | `r`     | `d`                 | `p`                     | `q`       |
+|---------------|---------|---------------------|-------------------------|-----------|
+| **Resultado** | Muestra | Función de densidad | Función de distribución | Cuantiles |
+</tr>
+<tr>
 
-| **Sufijo** | **Distribución** |
-|:-----------|:-----------------|
-| `unif`     |                  |
-| `norm`     |                  |
-| `pois`     | Poisson          |
-| `t`        |                  |
-| `f`        |                  |
-| `chisq`    | Chi cuadrado     |
-| `binom`    |                  |
-| `geom`     |                  |
-| `exp`      |                  |
-| `gamma`    |                  |
-| `weibull`  |                  |
+| **Sufijo**       | `unif` | `norm` | `pois`  | `t` | `f` | `chisq`      | `binom` | `geom` | `exp` | `gamma` | `weibull` |
+|------------------|--------|--------|---------|-----|-----|--------------|---------|--------|-------|---------|-----------|
+| **Distribución** |        |        | Poisson |     |     | Chi cuadrado |         |        |       |         |           |
+</tr>
+</  td>
 </table>
 
 ## Otras movidas que no sé dónde poner ahora mismo
