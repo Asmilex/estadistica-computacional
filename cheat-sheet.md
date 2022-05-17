@@ -183,12 +183,18 @@ Dibujando encima de plots
 
 
 #### Resumen
-| **Documento inicial** | **Documento final** | **Expresiones**             | **Comentarios**            |
-|:----------------------|:--------------------|:----------------------------|:---------------------------|
-| .rnw                  | .tex                | `knit("ej.Rnw")`            | Ecandena con el siguiente: |
-| .tex                  | .pdf                | `tools::texi2pdf("ej.tex")` |                            |
-| .rmd                  | .HTML               | `render("ej2.rmd")`         | Puede encadenar con        |
-| .HTML                 |                     | `browseURL(url="ej2.HTML")` |                            |
+| **Documento inicial** | **Documento intermedio** | **Expresiones**                                | **Comentarios** |
+|:----------------------|:-------------------------|:-----------------------------------------------|:----------------|
+| .rnw                  | .tex                     | `knit("ej.Rnw")`                               |                 |
+| .rmd                  | .md                      | `knit("ej.rmd")`                               |                 |
+| .rmd                  | .HTML                    | `render("ej2.rmd")`                            |                 |
+| .ext1                 | .ext2                    | `render("ej2.ext1", output_file = "ej2.ext2")` |                 |
+
+| **Documento intermedio** | **Documento final** | **Expresiones**             | **Comentarios** |
+|:-------------------------|:--------------------|:----------------------------|:----------------|
+| .md                      | .html               | render("ej.md")             |                 |
+| .tex                     | .pdf                | `tools::texi2pdf("ej.tex")` |                 |
+| .HTML                    |                     | `browseURL(url="ej2.HTML")` |                 |
 
 ## Otras movidas que no sé dónde poner ahora mismo
 
