@@ -201,7 +201,6 @@ Dibujando encima de plots
 A partir de la combinación de un prefijo indicando qué tipo de valores y un sufijo indicando la distribución se nombra a toda una familia de funciones de R.
 
 <table>
-<td>
 <tr>
 
 | **Prefijo**   | `r`     | `d`                 | `p`                     | `q`       |
@@ -214,7 +213,6 @@ A partir de la combinación de un prefijo indicando qué tipo de valores y un su
 |------------------|--------|--------|---------|-----|-----|--------------|---------|--------|-------|---------|-----------|
 | **Distribución** |        |        | Poisson |     |     | Chi cuadrado |         |        |       |         |           |
 </tr>
-</td>
 </table>
 
 ## Otras movidas que no sé dónde poner ahora mismo
