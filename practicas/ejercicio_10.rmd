@@ -1,0 +1,260 @@
+---
+title: "Práctica 10: simulación con R"
+date: "`r format(Sys.time(), '%d de %B de %Y')`"
+author: "Andrés Millán"
+documentclass: scrreprt
+geometry:
+- top=1.5in
+- bottom=1in
+- right=1in
+- left=1in
+
+numbersections: true
+
+mainfont: 'Crimson Pro'
+fontsize: 12pt
+monofont: 'JuliaMono'
+monofontoptions:
+ - Scale=0.6
+header-includes:
+ - \usepackage{fvextra}
+ - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+urlcolor: blue
+
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    theme: united
+    highlight: tango
+
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    highlight: tango
+---
+
+# Aproximación de una probabilidad
+
+Sea $(X, Y) \sim \mathcal{U}([-1, 1] \times [-1, 1])$. Aproximaremos la probabilidad $P[X + Y \le 0]$. Una estimación del suceso se consigue con el siguiente código:
+
+```{r}
+N <- 1000
+set.seed(1)
+
+x <- runif(N, -1, 1)
+y <- runif(N, -1, 1)
+
+suceso <- x + y <= 0
+
+mean(suceso)
+```
+
+El error viene dado por
+
+```{R}
+sd(suceso) / sqrt(N)
+```
+
+Podemos ver un gráfico de convergencia con el siguiente código:
+
+```{R}
+estimacion <- cumsum(suceso) / (1:N)
+error <- sqrt(cumsum((suceso - estimacion)^2)) / (1:N)
+
+plot(1:N, estimacion, type = "l", ylab = "Aproximación y límites de error", xlab = "Número de observaciones", main = expression(P(X + Y <= 0)), ylim = c(0, 1))
+z <- qnorm(0.025, lower.tail = FALSE)
+lines(estimacion - z * error, col = "blue", lwd = 2, lty = 3)
+lines(estimacion + z * error, col = "blue", lwd = 2, lty = 3)
+```
+
+Podemos replicar el experimento para $P[X^2 + Y^2 \le 1]$:
+
+```{R}
+x <- runif(N, -1, 1)
+y <- runif(N, -1, 1)
+
+suceso <- x^2 + y^2 <= 1
+
+mean(suceso)
+```
+
+El error es
+
+```{R}
+sd(suceso) / sqrt(N)
+```
+
+```{R}
+estimacion <- cumsum(suceso) / (1:N)
+error <- sqrt(cumsum((suceso - estimacion)^2)) / (1:N)
+
+plot(1:N, estimacion, type = "l", ylab = "Aproximación y límites de error", xlab = "Número de observaciones", main = expression(P(X^2 + Y^2 <= pi)), ylim = c(0, 1))
+z <- qnorm(0.025, lower.tail = FALSE)
+lines(estimacion - z * error, col = "blue", lwd = 2, lty = 3)
+lines(estimacion + z * error, col = "blue", lwd = 2, lty = 3)
+```
+
+# Aproximación de una integral
+
+Sean
+
+$$
+\begin{aligned}
+I_1 &  = \int_{0.2}^{0.4}{f(x)\ dx} = \int{I(0.2 < x < 0.4) f(x)\ dx } \\
+I_2 &  = \int{\sin(x) e^{-x} f(x)\ dx} \\
+f(x) & =  \frac{\Gamma(a + b)}{\Gamma(a) \Gamma(b)} x^{a - 1} (1 - x)^{b - 1}, \quad a = 2.5, b = 5, 0 \le x \le 1
+\end{aligned}
+$$
+
+Se pueden visualizar con
+
+```{R}
+f1 <- function(x) {
+    dbeta(x, 2.5, 5)
+}
+curve(f1(x), 0.2, 0.4)
+```
+
+```{R}
+f2 <- function(x) {
+    sin(x) * exp(-x) * dbeta(x, 2.5, 5)
+}
+curve(f2(x), 0, 1)
+```
+
+Queremos conocer el valor de ambas integrales. Sabemos que el resultado debe ser:
+
+```{R}
+integrate(f1, 0.2, 0.4)
+```
+
+```{R}
+integrate(f2, -Inf, Inf)
+```
+
+Podemos utilizar las técnicas de integración de Monte Carlo de forma análoga al ejercicio anterior.
+
+## Integral $I_1$
+
+```{R}
+f1_integral <- function(x) {
+    dbeta(x, 2.5, 5) * (0.2 < x & x < 0.4)
+}
+
+N <- 1000
+x <- runif(N)
+f_x <- sapply(x, f1_integral)
+
+mean(f_x)
+```
+
+El error es
+
+```{R}
+sd(f_x) / sqrt(N)
+```
+
+```{R}
+estimacion <- cumsum(f_x) / (1:N)
+error <- sqrt(cumsum((f_x - estimacion)^2)) / (1:N)
+
+plot(1:N, estimacion, type = "l", ylab = "Aproximación y límites de error", xlab = "Número de observaciones", main = "Integal I_1", ylim = c(0, 1))
+z <- qnorm(0.025, lower.tail = FALSE)
+lines(estimacion - z * error, col = "blue", lwd = 2, lty = 3)
+lines(estimacion + z * error, col = "blue", lwd = 2, lty = 3)
+```
+
+## Integral $I_2$
+
+```{R}
+N <- 1000
+x <- runif(N)
+f_x <- sapply(x, f2)
+
+mean(f_x)
+```
+
+El error es
+
+```{R}
+sd(f_x) / sqrt(N)
+```
+
+```{R}
+estimacion <- cumsum(f_x) / (1:N)
+error <- sqrt(cumsum((f_x - estimacion)^2)) / (1:N)
+
+plot(1:N, estimacion, type = "l", ylab = "Aproximación y límites de error", xlab = "Número de observaciones", main = "Integal I_2", ylim = c(0, 1))
+z <- qnorm(0.025, lower.tail = FALSE)
+lines(estimacion - z * error, col = "blue", lwd = 2, lty = 3)
+lines(estimacion + z * error, col = "blue", lwd = 2, lty = 3)
+```
+
+# Aproximación de una distribución de probabilidad
+
+$S_N = \sum_{i = 1}^{N}X_i, \quad N \sim \mathcal{P}(\lambda)$
+
+```{R}
+mu <- 3.5
+sigma <- 1.1
+
+E_X <- exp(mu + sigma^2 / 2)
+E_X
+```
+
+```{R}
+V_X <- E_X^2 * (exp(sigma^2) - 1)
+V_X
+```
+
+```{R}
+lambda <- 17
+E_S <- lambda * E_X
+E_S
+```
+
+```{R}
+V_S <- lambda * V_X + lambda * E_X^2
+V_S
+```
+```{R}
+N <- 5000
+S <- double(N)
+set.seed(1)
+
+for (i in 1:N) {
+    n <- rpois(1, lambda)
+
+    if (n > 0) {
+        S[i] <- sum(rlnorm(n, mu, sigma))
+    }
+}
+
+hist(S, xlim = c(0, 7000), breaks = 20, prob = TRUE, ylim = c(0, 1.2e-3))
+lines(density(S), col = "red")
+```
+
+Calculamos la media y la varianza de los $S_N$, que nos proporcionarán las aproximaciones de los valores respectivos exactos.
+
+```{R}
+mean(S)
+```
+```{R}
+var(S)
+```
+
+Podemos ver que son muy similares a `E_S` y `V_S`.
+
+Calcularemos ahora el *Value at Risk* usando las muestras de $S_N$:
+
+```{R}
+quantile(S, .995)
+```
+
+```{R}
+qnorm(0.995, mean = E_S, sd = sqrt(V_S))
+```
