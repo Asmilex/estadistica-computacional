@@ -56,3 +56,31 @@ m
 v <- 1:4
 dim(v) <- c(2, 2)
 v
+
+# ────────────────────────────────────────────────────────────────────────────────
+
+dd_weilbull <- function(x, lambda, alpha) {
+    dweibull(x, shape = alpha, scale = 1 / lambda)
+}
+
+rd_weilbull <- function(n, lambda, alpha) {
+    u <- runif(n)
+    1 / lambda * (- log(1 - u))^(1 / alpha)
+}
+
+n <- 1000
+set.seed(1)
+lambda <- 0.5
+alpha <- 2
+
+x <- rd_weilbull(n, lambda, alpha)
+
+hist(
+    x,
+    freq = FALSE,
+    breaks = 'FD',
+    ylim = c(0, 3),
+    main = 'Método de inversión (Weilbull)'
+)
+lines(density(x), col = 'blue')
+curve(dd_weilbull(x, lambda, alpha), add = TRUE, col = 2)
