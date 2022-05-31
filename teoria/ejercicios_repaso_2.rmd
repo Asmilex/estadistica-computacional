@@ -63,7 +63,7 @@ curve(dnorm(x, mean = 30, sd = 5), add = TRUE, col = 2)
 Gráfico de probabilidad de los valores de los valores de $y$:
 
 ```{r}
-print("(No sé hacer este de momento)")
+qqnorm(y)
 ```
 
 ```{r}
@@ -209,5 +209,5 @@ plot(1:N, estimacion,
 z <- qnorm(0.025, lower.tail = FALSE)
 lines(estimacion - z * error, col = "blue", lwd = 2, lty = 3)
 lines(estimacion + z * error, col = "blue", lwd = 2, lty = 3)
-abline(h = 0.4, col = 2)
+abline(h = pi / 4, col = 2)
 ```
