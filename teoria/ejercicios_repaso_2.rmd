@@ -1,0 +1,213 @@
+---
+title: "Ejercicios de repaso temas 4 y 5"
+date: "`r format(Sys.time(), '%d de %B de %Y')`"
+author: "Andrés Millán"
+documentclass: scrreprt
+geometry:
+- top=1.5in
+- bottom=1in
+- right=1in
+- left=1in
+
+numbersections: true
+
+mainfont: 'Crimson Pro'
+fontsize: 12pt
+monofont: 'JuliaMono'
+monofontoptions:
+ - Scale=0.6
+header-includes:
+ - \usepackage{fvextra}
+ - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+urlcolor: blue
+
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    theme: united
+    highlight: tango
+
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    highlight: tango
+---
+
+# Ejercicio 1
+
+```{r}
+set.seed(1)
+
+N <- 50
+
+y <- rchisq(n = N, df = 30)
+x <- rnorm(n = N, mean = 30, sd = 5)
+```
+
+```{r}
+mean(y)
+sd(y)
+quantile(y, c(0.25, 0.5, 0.75))
+```
+
+```{r}
+hist(y, freq = FALSE, breaks = "FD", main = "Muestras de Chi cuadrado", ylim = c(0, 0.1))
+lines(density(y), col = "blue")
+curve(dnorm(x, mean = 30, sd = 5), add = TRUE, col = 2)
+```
+
+Gráfico de probabilidad de los valores de los valores de $y$:
+
+```{r}
+print("(No sé hacer este de momento)")
+```
+
+```{r}
+boxplot(y)
+```
+
+Comparativa de las distribucione de $x$ e $y$ utilizando boxplots:
+
+```{r}
+boxplot(x, y, main = "Comparación de distribuciones")
+```
+
+Gráfico de dispersión:
+
+```{r}
+plot(x, y, main = "Gráfico de dispersión")
+```
+
+Ajuste de un modelo lineal del tipo $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, i = 1, \dots, 50$
+
+```{r}
+modelo <- lm(y ~ 1 + x)
+```
+
+```{r}
+plot(x, y, main = "Gráfico de dispersión")
+abline(modelo)
+```
+
+# Ejercicio 2
+
+```{r}
+dados_mere <- function(n = 4, debug = FALSE) {
+  x <- sample(1:6, n, replace = TRUE)
+
+  if (debug) {
+    print(x)
+  }
+
+  any(x == 6)
+}
+```
+
+```{r}
+dados_mere(n = 4)
+```
+
+```{r}
+N <- 10000
+
+# sample N times dados_mere and save the results to x
+x <- rep(4, N)
+x <- sapply(x, dados_mere)
+
+mean(x)
+```
+
+Probabilidad teórica:
+
+```{r}
+1 - (5 / 6)^4
+```
+
+# Ejercicio 3
+
+```{r}
+F_inversa <- function(xi, a, b) {
+  b / (1 - xi)^(1 / a)
+}
+
+N <- 1000
+
+xi <- runif(N)
+a <- 5
+b <- 4
+
+x <- F_inversa(xi, a, b)
+
+hist(x, freq = FALSE, breaks = "FD", main = "Método de la inversa para la distribución de Pareto", ylim = c(0, 1.2))
+lines(density(x), col = "blue")
+```
+
+```{r}
+pdf_pareto <- function(x, a, b) {
+  ifelse(x >= b,
+    (a * b^a) / (x^(a + 1)),
+    0
+  )
+}
+
+distrib_pareto <- function(x, a, b) {
+  ifelse(x >= b,
+    1 - (b / x)^a,
+    0
+  )
+}
+
+ks.test(x, distrib_pareto, a = a, b = b)
+```
+
+# Ejercicio 4
+
+Aproximar la integral
+
+$$
+\int_0^1{\frac{1}{1 + x^2}}dx
+$$
+
+```{r}
+f <- function(x) {
+  1 / (1 + x^2)
+}
+
+curve(f, 0, 1)
+```
+
+```{r}
+N <- 3000
+x <- runif(N)
+f_x <- sapply(x, f)
+
+mean(f_x)
+```
+
+Valor exacto de la integral:
+
+```{r}
+pi / 4
+```
+
+Gráfico con el error:
+
+```{r}
+# Calcular la media y su error
+estimacion <- cumsum(f_x) / (1:N)
+error <- sqrt(cumsum((f_x - estimacion)^2)) / (1:N)
+
+plot(1:N, estimacion,
+  type = "l",
+  ylab = "Aproximación y límites del error (1 - alpha = 0.975)",
+  xlab = "Número de simulaciones",
+)
+z <- qnorm(0.025, lower.tail = FALSE)
+lines(estimacion - z * error, col = "blue", lwd = 2, lty = 3)
+lines(estimacion + z * error, col = "blue", lwd = 2, lty = 3)
+abline(h = 0.4, col = 2)
+```
