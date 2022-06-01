@@ -225,3 +225,211 @@ A partir de la combinación de un prefijo indicando qué tipo de valores y un su
 | *Casting*                               | `as.()`                                           | Ejemplos: `as.numeric(x)`, `as.factor(x)`                                                                                                                                                                                                                                                                                             |
 | Comparación de números en coma flotante | `all.equal()`                                     | Se salta los problemas de redondeo de números en coma flotante. Por ejemplo, `all.equal(0.3 - 0.2, 0.1) == TRUE`, `all.equal(sqrt(3)^2, 3) == TRUE`                                                                                                                                                                                   |
 | Otros                                   | `str`<br> `summary`                               |                                                                                                                                                                                                                                                                                                                                       |
+# Snippets de código útiles
+
+## Rmarkdown
+
+Celda para exportar un `.rmd` a `.html`:
+
+```r
+# El espacio entre las comillas sobra!
+# Si no lo pongo, se rompe el fichero markdown
+`` `{r purl=FALSE, echo=FALSE, results=FALSE, message=FALSE, fig.show='hide', warning=FALSE, eval=FALSE}
+rmarkdown::render("./path/a/archivo", "html_document")
+`` `
+```
+
+## Integración de Monte Carlo
+
+Primero, definir la función a integrar. En este caso,
+
+
+$$
+\int_0^1{\frac{1}{1 + x^2}}dx
+$$
+
+```r
+f <- function(x) {
+  1 / (1 + x^2)
+}
+
+curve(f, 0, 1)
+```
+
+Tomar muestras y calcular su esperanza:
+
+```r
+N <- 3000
+x <- runif(N)
+f_x <- sapply(x, f)
+
+mean(f_x)
+```
+
+Gráfico con el error:
+
+```r
+valor_exacto <- pi / 4
+
+# Calcular la media y su error
+estimacion <- cumsum(f_x) / (1:N)
+error <- sqrt(cumsum((f_x - estimacion)^2)) / (1:N)
+
+plot(1:N, estimacion,
+  type = "l",
+  ylab = "Aproximación y límites del error (1 - alpha = 0.975)",
+  xlab = "Número de simulaciones",
+)
+z <- qnorm(0.025, lower.tail = FALSE)
+lines(estimacion - z * error, col = "blue", lwd = 2, lty = 3)
+lines(estimacion + z * error, col = "blue", lwd = 2, lty = 3)
+abline(h = valor_exacto, col = 2)
+```
+
+## Método de la transformada inversa
+
+Definir la función de distribución inversa que te deberían haber proporcionado. Tendrás que cambiar los parámetros de la función. En ete caso, se utiliza la distribución de Pareto:
+
+```r
+F_inversa <- function(xi, a, b) {
+  b / (1 - xi)^(1 / a)
+}
+```
+
+Tomar muestras y sacar los gráficos:
+
+```r
+N <- 1000
+
+xi <- runif(N)
+a <- 5
+b <- 4
+
+x <- F_inversa(xi, a, b)
+
+hist(x, freq = FALSE, breaks = "FD", main = "Método de la inversa para la distribución de ...", ylim = c(0, 1.2))
+lines(density(x), col = "blue")
+```
+
+Aplicar el test de Kolmogorov-Smirknow para comprobar cómo de bien se aproxima. Para ello, necesitarás la función de ditribución original:
+
+```r
+pdf_pareto <- function(x, a, b) {
+  ifelse(x >= b,
+    (a * b^a) / (x^(a + 1)),
+    0
+  )
+}
+
+distrib_pareto <- function(x, a, b) {
+  ifelse(x >= b,
+    1 - (b / x)^a,
+    0
+  )
+}
+
+ks.test(x, distrib_pareto, a = a, b = b)
+```
+
+
+## Método de aceptación-rechazo
+
+Queremos sacar muestras de una distribución con función de densidad $p_X$ a partir de una con función de densidad $p_Y$. Para este ejemplo,
+
+$$
+\begin{aligned}
+p_X (x) & = \frac{\Gamma(a + b)}{\Gamma(a) \Gamma(b)} x^{a - 1} (1 -
+x)^{b - 1}, \quad 0 \le x \le 1; a = 2, b = 6 \\
+p_Y (x) & = 1, \quad 0 \le x \le 1
+\end{aligned}
+$$
+
+El algoritmo necesita un $M \in [1, \infty)$ tal que
+
+$$
+p_X(x) \le M p_Y(x) \quad \forall x \in \mathbb{R}
+$$
+
+Así que, para empezar, define tus parámetros:
+
+```r
+a <- 2
+b <- 6
+
+p_X <- function(x) dbeta(x, shape1 = a, shape2 = b)
+p_Y <- function(x) 1
+
+```
+
+Buscamos el M óptimo. En este caso, se puede tomar
+
+$$
+M = \sup_{x}\frac{p_Y(x)}{p_X(x)} = \sup_{x}{p_X(x)}
+$$
+
+```r
+resultado <- optimize(
+    #                    Te va a tocar cambiar esto
+    #                vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    f = function(x) { dbeta(x, shape1 = a, shape2 = b) },
+    maximum = TRUE,
+    interval = c(0, 1)
+)
+
+M <- resultado$objective
+```
+
+Enseñar la curva del algoritmo:
+
+```r
+#          Cambia este parámetro!
+#     vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+curve(dbeta(x, shape1 = a, shape2 = b), 0, 1)
+
+#        Igual aquí
+#         vvvvvvvv
+curve(M * dunif(x), 0, 1, add = TRUE, col = 2, lty = 2)
+legend('right',
+    legend = c('p_X(x)', 'p_Y * M'),
+    col = c(1, 2), lty = c(1, 2), bty = 'n'
+)
+```
+
+Tomar muestras:
+
+```r
+N <- 1000
+x <- double(N)
+
+valores_generados <- 0
+
+for (i in 1:N) {
+    xi <- runif(1)
+    y <- runif(1)   # Depende de p_Y
+
+    valores_generados <- valores_generados + 1
+
+    while (xi > p_X(y) / (M * p_Y(y))) {
+        # Seguir generando hasta que aceptemos uno
+        xi <- runif(1)
+        y <- runif(1)
+        valores_generados <- valores_generados + 1
+    }
+
+    # Aceptar el valor
+    x[i] <- y
+}
+
+valores_generados
+```
+
+Mostrar gráfica con el resultado:
+
+```r
+hist(x, freq = FALSE, breaks = 'FD', main = 'Método del rechazo')
+lines(density(x), col = 'blue')
+
+#             Cambiar
+#     vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+curve(dbeta(x, shape1 = a, shape2 = b), add = TRUE, col = 2)
+```
