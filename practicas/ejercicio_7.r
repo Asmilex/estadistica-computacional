@@ -34,7 +34,6 @@ x2 <- seq(50000, 80000, by = 10000)
 x3 <- seq(100000, 140000, by = 20000)
 hist(salary, breaks = c(x1, x2, x3))
 
-hist(salary, breaks = c(x1, x2, x3))
 lines(density(salary), col = "blue")
 
 curve(

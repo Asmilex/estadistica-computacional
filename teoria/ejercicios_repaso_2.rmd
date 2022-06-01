@@ -114,9 +114,9 @@ dados_mere(n = 4)
 ```{r}
 N <- 10000
 
-# sample N times dados_mere and save the results to x
-x <- rep(4, N)
-x <- sapply(x, dados_mere)
+x <- replicate(N, dados_mere(n = 4))
+# x <- rep(4, N)
+# x <- sapply(x, dados_mere)
 
 mean(x)
 ```
