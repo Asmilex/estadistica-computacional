@@ -70,7 +70,7 @@ qqnorm(y)
 boxplot(y)
 ```
 
-Comparativa de las distribucione de $x$ e $y$ utilizando boxplots:
+Comparativa de las distribuciones de $x$ e $y$ utilizando boxplots:
 
 ```{r}
 boxplot(x, y, main = "Comparación de distribuciones")
