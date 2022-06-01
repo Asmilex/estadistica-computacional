@@ -1,0 +1,47 @@
+---
+title: "Examen práctico 2"
+date: "`r format(Sys.time(), '%d de %B de %Y')`"
+author: "Andrés Millán"
+documentclass: scrreprt
+geometry:
+- top=1.5in
+- bottom=1in
+- right=1in
+- left=1in
+
+numbersections: true
+
+mainfont: 'Crimson Pro'
+fontsize: 12pt
+monofont: 'JuliaMono'
+monofontoptions:
+ - Scale=0.6
+header-includes:
+ - \usepackage{fvextra}
+ - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+urlcolor: blue
+
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    theme: united
+    highlight: tango
+
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    highlight: tango
+---
+
+
+# Ejercicio 1
+
+# Ejercicio 2
+
+```{r purl=FALSE, echo=FALSE, results=FALSE, message=FALSE, fig.show='hide', warning=FALSE, eval=FALSE}
+rmarkdown::render("./practicas/examen_2.rmd", "html_document")
+```
