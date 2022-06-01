@@ -177,7 +177,7 @@ Dibujando encima de plots
 ### Documentos
 #### Configuración de vscode
 1. Instalación de paquetes: `install.packages(c("markdown", "rmarkdown", "knitr"))`
-2. Entorno de ejecución de los chunks. Por defecto es el de el documento. Para cambiarlo al root del entorno de trabajo (eso es, donde se suelen ejecutar los comandos de los scripts):
+2. Entorno de ejecución de los chunks. Por defecto es el del documento. Para cambiarlo a la raiz del entorno de trabajo (eso es, donde se suelen ejecutar los comandos de los scripts):
     1. En settings.json: `"r.rmarkdown.knit.defaults.knitWorkingDirectory": "workspace root"` para que al compilar desde la interfaz de vscode se haga desde root.
     2. `opts_knit$set(root.dir = ".")` Hace que se ejecuten en root workspace al ejecutarse en la consola. NOTA: se debería hacer cada vez que se abre vscode
 
