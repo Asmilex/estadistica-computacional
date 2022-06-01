@@ -311,7 +311,7 @@ hist(x, freq = FALSE, breaks = "FD", main = "Método de la inversa para la distr
 lines(density(x), col = "blue")
 ```
 
-Aplicar el test de Kolmogorov-Smirknow para comprobar cómo de bien se aproxima. Para ello, necesitarás la función de ditribución original:
+Aplicar el test de Kolmogorov-Smirnov para comprobar cómo de bien se aproxima. Para ello, necesitarás la función de ditribución original:
 
 ```r
 pdf_pareto <- function(x, a, b) {
