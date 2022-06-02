@@ -176,7 +176,7 @@ Comprobemos gráficamente su distribución:
 hist(x,
   freq = FALSE,
   breaks = "FD",
-  main = "Método de la transformada inversa para la distribución de Pareto (a = 5, b = 4)",
+  main = "Método de la trans. inversa para la distribución de Pareto (a = 5, b = 4)",
   xlim = c(3, 14), ylim = c(0, 1.2)
 )
 lines(density(x), col = "blue")
