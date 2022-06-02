@@ -40,7 +40,160 @@ output:
 
 # Ejercicio 1
 
+Para este ejercicio utilizaremos el dataset `airquality`, el cual recoge datos relacionados con la calidad del aire en Nueva York.
+
+```{r}
+summary(airquality)
+```
+
+Construyamos un diagrama de cajas que nos permita comprobar la distribución de la radiación solar (variable `Solar.R`, medida en langleys) en los meses de mayo, junio, julio, agosto y septiembre.
+
+Para conseguirlo, convirtamos primero la columna `airquality$Month` en un factor:
+
+```{r}
+aire <- airquality
+aire$Month <- factor(aire$Month, labels = c("Mayo", "Junio", "Julio", "Agosto", "Septiembre"))
+summary(aire$Month)
+```
+
+La distribución de la variable `Solar.R` en conjunto es
+
+```{r}
+boxplot(
+  aire$Solar.R,
+  main = "Radiación solar en Nueva York en los meses mayo - septiembre",
+  ylab = "Radiación solar (lang)"
+)
+```
+
+Y para cada mes, obtenemos
+
+```{r}
+boxplot(
+  aire$Solar.R[aire$Month == "Mayo"],
+  aire$Solar.R[aire$Month == "Junio"],
+  aire$Solar.R[aire$Month == "Julio"],
+  aire$Solar.R[aire$Month == "Agosto"],
+  aire$Solar.R[aire$Month == "Septiembre"],
+  main = "Radiación solar en Nueva York por mes",
+  ylab = "Radiación solar (lang)",
+  names = c("Mayo", "Junio", "Julio", "Agosto", "Septiembre")
+)
+```
+
+¿Tendrán relación la radiación solar y la contaminación de Ozono?
+
+```{r}
+plot(
+  aire$Solar.R, aire$Ozone,
+  main = "Radiación solar vs Ozono",
+  xlab = "Radiación solar (lang)",
+  ylab = "Niveles de ozono (ppb)",
+  ylim = c(0, 200)
+)
+```
+
+Es posible que exista una dependencia entre ambas variables. Ajustemos un modelo de regresión lineal para obtener una estimación. El modelo que vamos a ajustar es
+
+
+$$
+\text{Ozono} = \beta_0 + \beta_1 \text{Solar.R}
+$$
+
+Lo cual puede conseguirse con
+
+```{r}
+modelo <- lm(aire$Ozone ~ aire$Solar.R)
+summary(modelo)
+```
+
+Dicho p-valores nos indican una gran confianza en la correlación de ambas variables. El test de ANOVA muestra un resultado similar:
+
+```{r}
+anova(modelo)
+```
+
+Superponiendo el modelo al gráfico anterior, obtenemos
+
+```{r}
+plot(
+  aire$Solar.R, aire$Ozone,
+  main = "Radiación solar vs Ozono",
+  xlab = "Radiación solar (lang)",
+  ylab = "Niveles de ozono (ppb)",
+  ylim = c(0, 200)
+)
+abline(modelo)
+```
+
+Lo cual nos confirma el efecto que esperábamos.
+
 # Ejercicio 2
+
+La distribución de Pareto, de parámetros $a, b > 0$, viende dada por las funciones de densidad y distribución
+
+$$
+\begin{aligned}
+f(x) & = \frac{ab^a}{x^{a + 1}}, \quad &  x \ge b \\
+F(x) & = 1 - \left(\frac{b}{x}\right)^a, \quad & x \ge b
+\end{aligned}
+$$
+
+Con inversa
+
+$$
+x = F^{-1}(\xi) = \frac{b}{\left( 1- \xi \right)^{1/a}}
+$$
+
+```{r}
+F_inversa <- function(xi, a, b) {
+  b / (1 - xi)^(1 / a)
+}
+```
+
+Podemos utilizar el método de la transformada inversa para generar $N = 1000$ valores aleatorios de la distribución de Pareto, con parámetros $a = 5$, $b = 4$:
+
+```{r}
+N <- 1000
+
+xi <- runif(N)
+a <- 5
+b <- 4
+
+x <- F_inversa(xi, a, b)
+```
+
+Los valores que hemos generado son:
+
+```{r}
+mean(x)
+sd(x)
+```
+
+Comprobemos gráficamente su distribución:
+
+```{r}
+hist(x,
+  freq = FALSE,
+  breaks = "FD",
+  main = "Método de la transformada inversa para la distribución de Pareto (a = 5, b = 4)",
+  xlim = c(3, 14), ylim = c(0, 1.2)
+)
+lines(density(x), col = "blue")
+```
+
+Podemos utilizar el test de Kolmogorov-Smirnov para comprobar que, en efecto, la distribución de los valores generados se asemeja a la de Pareto:
+
+```{r}
+distrib_pareto <- function(x, a, b) {
+  ifelse(x >= b,
+    1 - (b / x)^a,
+    0
+  )
+}
+
+ks.test(x, distrib_pareto, a = a, b = b)
+```
 
 ```{r purl=FALSE, echo=FALSE, results=FALSE, message=FALSE, fig.show='hide', warning=FALSE, eval=FALSE}
 rmarkdown::render("./practicas/examen_2.rmd", "html_document")
